@@ -1,0 +1,27 @@
+<?php
+
+
+class Tx_VenstrePlugins_ViewHelpers_TypoScriptViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+
+  
+  /**
+   * Parses a block of typoscript and renders the output
+   *
+   * @return string 
+   * @author Mads Brunn <mads@brunn.dk>
+   */  
+  function render(){
+    
+    $setup = $this->renderChildren();
+    $tsparser = t3lib_div::makeInstance('t3lib_TSparser');
+    $tsparser->parse($setup);
+    $cObj = t3lib_div::makeInstance('tslib_cObj');
+    return $cObj->cObjGet($tsparser->setup);
+    
+  }
+
+}
+
+
+
+?>
