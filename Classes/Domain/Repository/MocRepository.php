@@ -46,7 +46,8 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 		if (!$this->hasObject($object)) {
 			$this->add($object);
 		}
-		$this->saveAll();
+
+		//$this->saveAll();
 	}
 
 	public function hasObject($Object) {
