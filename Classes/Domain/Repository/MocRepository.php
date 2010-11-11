@@ -1,12 +1,27 @@
 <?php
 class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persistence_Repository{
+
+	/**
+	 * Toggle for the createQuery setRespectStoragePage option
+	 *
+	 * @var boolean
+	 */
+	protected $respectStoragePage = false;
+
+	/**
+	  * Override the RespectStoragePage setting
+	 *
+	 * @return Tx_Extbase_Persistence_QueryInterface
+	 */
 	public function createQuery(){
 		$query = parent::createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectStoragePage($this->respectStoragePage);
 		return $query;
 	}
 
 	 /**
+	 * Find all objects with a given lidt of uids
+	 *
 	 * @param array $uids array of ids
 	 */
 	public function findByUids(array $ids = array()){
@@ -18,18 +33,39 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 		return $this->query->matching($criterion)->execute();
 	}
 
+	/**
+	 * Find by a given field / value combination
+	 *
+	 * @param string $field
+	 * @param mixed $value
+	 * @return array
+	 */
 	public function findBy($field, $value) {
 		$Query = $this->createQuery();
 		$Criterion = $Query->equals($field, $value);
 		return $Query->matching($Criterion)->execute();
 	}
 
+	/**
+	 * Count the number of records matching a given field / value combination
+	 *
+	 * @param string $field
+	 * @param mixed $value
+	 * @return integer
+	 */
 	public function countBy($field, $value) {
 		$Query = $this->createQuery();
 		$Criterion = $Query->equals($field, $value);
 		return $Query->matching($Criterion)->count();
 	}
 
+	/**
+	 * Find just one record by a field / value combination
+	 *
+	 * @param string $field
+	 * @param mixed $value
+	 * @return Tx_Extbase_DomainObject_AbstractEntity|null
+	 */
 	public function findOneBy($field, $value) {
 		$query = $this->createQuery();
 		$result = $query->matching($query->equals($field, $value))
@@ -42,43 +78,67 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 		return $object;
 	}
 
+	/**
+	 * Saves an object and persist it at once
+	 *
+	 * @param Tx_Extbase_DomainObject_AbstractEntity $object
+	 */
 	public function save($object){
 		if (!$this->hasObject($object)) {
 			$this->add($object);
 		}
-
-		//$this->saveAll();
+		$this->saveAll();
 	}
 
-	public function hasObject($Object) {
-		if (!($Object instanceof $this->objectType)) {
+	/**
+	 * Check if the repository has an object
+	 *
+	 * @param Tx_Extbase_DomainObject_AbstractEntity $object
+	 * @return boolean
+	 */
+	public function hasObject($object) {
+		if (!($object instanceof $this->objectType)) {
 			throw new Tx_Extbase_Persistence_Exception_IllegalObjectType('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
 		}
 
-		return $this->identityMap->hasObject($Object);
+		return $this->identityMap->hasObject($object);
 	}
 
-	public function insertOrUpdate($Object, $field = 'uid') {
-		if (!($Object instanceof $this->objectType)) {
+	/**
+	 * Insert or replaces an object
+	 *
+	 * If the record already exists, update it, else insert it by calling save
+	 *
+	 * @param Tx_Extbase_DomainObject_AbstractEntity $object
+ 	 * @return void
+ 	 */
+	public function insertOrUpdate($object) {
+		if (!($object instanceof $this->objectType)) {
 			throw new Tx_Extbase_Persistence_Exception_IllegalObjectType('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
 		}
 
-		$value = $Object->_getProperty($field);
-		if (!empty($value) && $this->countBy($field, $value) === 1) {
-			$OldObject = $this->findBy($field, $value);
-			$Object->setUid($Object->getUid());
-			$this->replace($OldObject, $Object);
+		if (!empty($value) && $this->exists($object) === 1) {
+			$oldObject = $this->findBy('uid', $object->_getProperty('uid'));
+			$object->setUid($object->getUid());
+
+			$this->replace($oldObject, $object);
 		} else {
-			$this->save($Object);
+			$this->save($object);
 		}
 	}
 
-	public function exists($Object) {
-		if (!($Object instanceof $this->objectType)) {
+	/**
+	 * Check if an object exists in the database
+	 *
+	 * @param Tx_Extbase_DomainObject_AbstractEntity $object
+	 * @return boolean
+	 */
+	public function exists($object) {
+		if (!($object instanceof $this->objectType)) {
 			throw new Tx_Extbase_Persistence_Exception_IllegalObjectType('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
 		}
 
-		$uid = $Object->getUid();
+		$uid = $object->getUid();
 		if (empty($uid)) {
 			throw new Tx_Extbase_Persistence_Exception_UnknownObject('The "object" is does not have an existing counterpart in this repository.', 1249479819);
 		}
