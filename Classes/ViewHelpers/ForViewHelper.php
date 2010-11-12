@@ -1,17 +1,17 @@
 <?php
 /**
  * For ViewHelper for fluid
- * 
+ *
  * Example:
- * 		{namespace moc=Tx_MocHelpers_ViewHelpers} 
- *			
+ * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
+ *
  *		  <moc:for each="{parameter}" as="element"></moc:for>
- * 
+ *
  */
 class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
-	 * Iterates through elements of $each and renders child nodes with additional split in between var (not appended in end of array) 
+	 * Iterates through elements of $each and renders child nodes with additional split in between var (not appended in end of array)
 	 *
 	 * @param array $each The array or SplObjectStorage to iterated over
 	 * @param string $as The name of the iteration variable
@@ -22,7 +22,7 @@ class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_A
 	 * @author Sebastian Kurfürst <sebastian@typo3.org>
 	 * @author Bastian Waidelich <bastian@typo3.org>
 	 * @author Robert Lemke <robert@typo3.org>
-	 
+	 *
 	 * @author Aske Ertmann <aske@mocsystems.com>
 	 * @api
 	 */
@@ -41,7 +41,7 @@ class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_A
 		if ($reverse === TRUE) {
 			$each = array_reverse($each);
 		}
-		
+
 		$output = '';
 		foreach ($each as $keyValue => $singleElement) {
 			$this->templateVariableContainer->add($as, $singleElement);

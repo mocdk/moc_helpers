@@ -83,10 +83,16 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 *
 	 * @param Tx_Extbase_DomainObject_AbstractEntity $object
 	 */
-	public function save($object){
+	public function save($object) {
+		// Only allow to save valid objects, if the object supports it
+		if (($object instanceof Tx_MocHelpers_Domain_Model_Abstract) && !$object->isValid()) {
+			throw new Tx_MocHelpers_Domain_Repository_Exception('Object does not validate. Please check if all model validation rules has been upheld');
+		}
+
 		if (!$this->hasObject($object)) {
 			$this->add($object);
 		}
+
 		$this->saveAll();
 	}
 
