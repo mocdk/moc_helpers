@@ -2,6 +2,8 @@
 /**
  * ParseFuncRTE ViewHelper for fluid Runs everything to parseFunc_RTE
  *
+ * @deprecated, just use the f:format.html instead.
+ *
  * Example:
  * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
  *
