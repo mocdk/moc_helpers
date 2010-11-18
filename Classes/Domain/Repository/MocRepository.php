@@ -71,9 +71,26 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 		$result = $query->matching($query->equals($field, $value))
     		->setLimit(1)
     		->execute();
-		$object = NULL;
+		$object = null;
 		if (count($result) > 0) {
     		$object = current($result);
+		}
+		return $object;
+	}
+
+	/**
+	 * Find just one record by a field / value combination
+	 *
+	 * |f the record does not exist, initialize a new one
+	 *
+	 * @param string $field
+	 * @param mixed $value
+	 * @return Tx_Extbase_DomainObject_AbstractEntity
+	 */
+	public function findOneOrInitializeBy($field, $value) {
+		$object = $this->findOneBy($field, $value);
+		if (empty($object)) {
+			$object = new $this->objectType;
 		}
 		return $object;
 	}
@@ -146,7 +163,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 
 		$uid = $object->getUid();
 		if (empty($uid)) {
-			throw new Tx_Extbase_Persistence_Exception_UnknownObject('The "object" is does not have an existing counterpart in this repository.', 1249479819);
+			throw new Tx_Extbase_Persistence_Exception_UnknownObject('The "object" does not have an existing counterpart in this repository.', 1249479819);
 		}
 
 		return 1 === $this->countByUid($uid);
