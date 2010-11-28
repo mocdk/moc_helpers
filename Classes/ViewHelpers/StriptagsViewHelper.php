@@ -16,7 +16,9 @@ class Tx_MocHelpers_ViewHelpers_StriptagsViewHelper extends Tx_Fluid_ViewHelpers
 	 * @param string $allowableTags	Comma list of tags allowed
 	 * @return String content parsed for links
 	 */
+	
 	public function render($allowableTags = "") {
+		//debug(html_entity_decode($this->renderChildren()));
 		return strip_tags($this->renderChildren(),$allowableTags);
 		
 	}
