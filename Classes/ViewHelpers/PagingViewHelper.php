@@ -73,9 +73,10 @@ class Tx_MocHelpers_ViewHelpers_PagingViewHelper  extends Tx_Fluid_Core_ViewHelp
 			$numberOfPagesToShow -= 2;
 			$pageRange = $this->findPageRange($numberOfPages,$currentPage,$numberOfPagesToShow);
 		}
-		array_unshift($pageRange,1);
+		if($numberOfPages>0) {
+			array_unshift($pageRange,1);
+		}
 		array_push($pageRange,$numberOfPages);
-		
 		return $pageRange;
 		
 	}
@@ -97,6 +98,8 @@ class Tx_MocHelpers_ViewHelpers_PagingViewHelper  extends Tx_Fluid_Core_ViewHelp
 			$pageRange[0] = -1;
 		}
 		$lastEntry = $numberOfPagesToShow-1;
+		
+		t3lib_div::debug($lastEntry,"Lastentry");
 		if($pageRange[$lastEntry] != ($numberOfPages-1) && intval($pageRange[$lastEntry])) {
 			$pageRange[$lastEntry] = -1;
 		}

@@ -26,7 +26,10 @@ class Tx_MocHelpers_ViewHelpers_Paging_LowerBoundViewHelper  extends Tx_Fluid_Co
 	 * @param Integer $returnUpperBound
 	 * @return MixIntegered
 	 */
-	public function render($currentPage=1,$resultsPerPage=10){
+	public function render($totalResults,$currentPage=1,$resultsPerPage=10){
+		if($totalResults==0) {
+			return 0;
+		}		
 		$lowerBound = ($currentPage-1)*$resultsPerPage+1;
 		return $lowerBound;
 	}
