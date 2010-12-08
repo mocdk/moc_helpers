@@ -99,7 +99,7 @@ class Tx_MocHelpers_ViewHelpers_PagingViewHelper  extends Tx_Fluid_Core_ViewHelp
 		}
 		$lastEntry = $numberOfPagesToShow-1;
 		
-		t3lib_div::debug($lastEntry,"Lastentry");
+
 		if($pageRange[$lastEntry] != ($numberOfPages-1) && intval($pageRange[$lastEntry])) {
 			$pageRange[$lastEntry] = -1;
 		}
