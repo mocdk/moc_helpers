@@ -14,12 +14,15 @@ class Tx_MocHelpers_ViewHelpers_StriptagsViewHelper extends Tx_Fluid_ViewHelpers
 
 	/**
 	 * @param string $allowableTags	Comma list of tags allowed
+	 * @param boolean $decode Whether or not to html_entity_decode
 	 * @return String content parsed for links
 	 */
 	
-	public function render($allowableTags = "") {
-		//debug(html_entity_decode($this->renderChildren()));
-		return strip_tags($this->renderChildren(),$allowableTags);
-		
+	public function render($allowableTags = '', $decode = false) {
+		if($decode) {
+			return strip_tags(html_entity_decode($this->renderChildren()), $allowableTags);
+		}
+		return strip_tags($this->renderChildren(), $allowableTags);
 	}
+
 }
