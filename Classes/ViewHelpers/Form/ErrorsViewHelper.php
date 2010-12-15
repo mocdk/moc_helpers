@@ -5,7 +5,7 @@ class Tx_MocHelpers_ViewHelpers_Form_ErrorsViewHelper extends Tx_Fluid_ViewHelpe
 	 *
 	 * @param string $for The name of the error name (e.g. argument name or property name). This can also be a property path (like blog.title), and will then only display the validation errors of that property.
 	 * @param string $as The name of the variable to store the current error
-	 * @param boolean $numberOfErrors Number of errors to show
+	 * @param integer $numberOfErrors Number of errors to show
 	 * @return string Rendered string
 	 * @author Christopher Hlubek <hlubek@networkteam.com>
 	 * @author Sebastian Kurfürst <sebastian@typo3.org>

@@ -18,17 +18,19 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 		$query->getQuerySettings()->setRespectStoragePage($this->respectStoragePage);
 		return $query;
 	}
-
-	 /**
+	
+	/**
 	 * Find all objects with a given lidt of uids
 	 *
 	 * @param array $uids array of ids
 	 */
-	public function findByUids(array $ids = array()){
+	public function findByUids($uids = array()) {
 		$this->query = $this->createQuery();
-		$criterion = $this->createUidEqualsCriterion(-1100);//-1100 has no significance, it only serves as a criterion precondition which will return no iterms
-		foreach($ids as $id){
-			$criterion = $this->query->logicalOr($criterion, $this->createUidEqualsCriterion($id));
+		$criterion = $this->query->withUid(array_pop($uids));
+		if(is_array($uids)) {
+			foreach($uids as $uid) {
+				$criterion = $this->query->logicalOr($criterion, $this->query->withUid($uid));
+			}
 		}
 		return $this->query->matching($criterion)->execute();
 	}
@@ -167,13 +169,6 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 		}
 
 		return 1 === $this->countByUid($uid);
-	}
-
-	/**
-	 * @param int $id
-	 */
-	protected function createUidEqualsCriterion($id){
-		return $this->query->equals('uid', $id);
 	}
 
 	public function saveAll(){

@@ -1,4 +1,5 @@
 <?php
+
 class Tx_MocHelpers_Domain_Model_Abstract extends Tx_Extbase_DomainObject_AbstractEntity {
 	/**
 	 * Check if the domain model validates according to its validation annotations
