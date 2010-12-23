@@ -39,7 +39,7 @@ abstract class Tx_MocHelpers_Validation_Abstract {
 	/*
 	 * @return void
 	 */
-	protected function addError(Tx_Extbase_Validation_Error $error, $argument) {
+	public function addError(Tx_Extbase_Validation_Error $error, $argument) {
 		if(!array_key_exists($argument, $this->errors)) {
 			$this->errors[$argument] = $this->objectManager->getObject('Tx_Extbase_MVC_Controller_ArgumentError', $argument);
 		}
