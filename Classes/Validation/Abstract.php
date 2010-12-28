@@ -50,7 +50,7 @@ abstract class Tx_MocHelpers_Validation_Abstract {
 	 * @return boolean
 	 */
 	public function isValid() {
-		if(is_null($this->errors)) {
+		if(empty($this->errors)) {
 			$this->validate();
 		}
 		return empty($this->errors);
