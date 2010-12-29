@@ -80,13 +80,18 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 						if(isset($value['if'])) {
 							foreach($value['if'] as $ifKey => $ifValue) {
 								if(isset($data[$ifKey])) {
-									if($data[$ifKey] != $ifValue) {
-										continue 2;
-									}
+									$matchValue = $data[$ifKey];
 								} else {
-									if(MOC_Array::extract($this->data, $ifKey) != $ifValue) {
+									$matchValue = MOC_Array::extract($this->data, $ifKey);
+								}
+								if(is_array($ifValue)) {
+									$regEx = empty($ifValue['regEx']) ? $ifValue['regularExpression'] : $ifValue['regEx'];
+									$result = preg_match($regEx, $matchValue);
+									if(($result === 0) || ($result === FALSE)) {
 										continue 2;
 									}
+								} elseif($matchValue != $ifValue) {
+									continue 2;
 								}
 							}
 						}
