@@ -13,9 +13,14 @@ class Tx_MocHelpers_ViewHelpers_TitleViewHelper extends Tx_Fluid_Core_ViewHelper
 	/**
 	 * @param boolean $notPageTitle
 	 * @param boolean $notIndexedTitle
+	 * @param boolean $appendPageTitle
 	 */
-	public function render($onlyDocumentTitle = false, $onlyIndexedTitle = false) {
+	public function render($onlyDocumentTitle = false, $onlyIndexedTitle = false, $appendPageTitle = false) {
 		$title = $this->renderChildren();
+		
+		if($appendPageTitle) {
+			$title .= empty($GLOBALS['TSFE']->cObj->data['nav_title']) ? $GLOBALS['TSFE']->cObj->data['title'] : $GLOBALS['TSFE']->cObj->data['nav_title'];
+		}
 
 		if(!$onlyIndexedTitle) {
 			$GLOBALS['TSFE']->altPageTitle = $title;
