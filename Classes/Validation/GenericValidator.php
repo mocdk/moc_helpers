@@ -64,6 +64,11 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 	 * @return void
 	 */
 	protected function validateKey($data, $key, $value, $path = array()) {
+		if(!is_array($data)) {
+			return true;	
+		
+		}
+		
 		if($key === '*') {
 			foreach($data as $rowKey => $row) {
 				$rowPath = $path;
