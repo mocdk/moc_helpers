@@ -1,10 +1,9 @@
 <?php
 
-
 /**
-*
-* Backported from Calculation viewhleper in FLOW3, but aliases are only create inside the current scope!
-*
+ *
+ * Backported from Calculation viewhleper in FLOW3, but aliases are only create inside the current scope!
+ *
  * Basic math calculations, result can be output or stored in a new variable
  * So far no nesting and parenthesis, no precedence of operators
  *
@@ -51,19 +50,15 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 			$this->templateVariableContainer->remove($aliasToCreate);
 			return $output;
 		}
-		if ($output) {
-			return $result;
-		} else {
-			return '';
-		}
+		return $result;
 	}
 
 	/**
-	*	later on responsible for presplitting the array by parenthesis to have nested calculations
-	*	@param array $splitArray The array with splitted formula
-	*	@param integer $nestingLevel used for the recursion of nested parenthesis
-	*	@return array multidimensional array with numbers, operators and subarrays (nested)
-	*/
+	 *	later on responsible for presplitting the array by parenthesis to have nested calculations
+	 *	@param array $splitArray The array with splitted formula
+	 *	@param integer $nestingLevel used for the recursion of nested parenthesis
+	 *	@return array multidimensional array with numbers, operators and subarrays (nested)
+	 */
 	function buildExpressionArray($splitArray, $nestingLevel = 0){
 		$expresionArray = array();
 
@@ -87,9 +82,9 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 	}
 
 	/**
-	*	will try to evaluate the calculation and return a final value
-	*	@param array $expressionArray array to be calculated
-	*/
+	 *	will try to evaluate the calculation and return a final value
+	 *	@param array $expressionArray array to be calculated
+	 */
 	function evaluateExpressionArray($expressionArray = array()){
 		$subExpressionsEliminated = FALSE;
 		// eliminate sub expressions, this is recursive, so after first run, all sub expressions should be eliminated
@@ -165,11 +160,11 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 	}
 
 	/**
-	* find next valid key of (calculation) array (not easy as values get deleted)
-	* @param array $array the array to find a next key
-	* @param integer $keyFrom the key for which you want the next
-	* @return
-	*/
+	 * find next valid key of (calculation) array (not easy as values get deleted)
+	 * @param array $array the array to find a next key
+	 * @param integer $keyFrom the key for which you want the next
+	 * @return
+	 */
 	function findNextValidKey($array,$keyFrom){
 		$i = 0;
 		$key = NULL;
@@ -182,8 +177,4 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 		return $key;
 	}
 
-
 }
-
-
-?>

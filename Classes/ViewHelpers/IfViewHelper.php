@@ -233,5 +233,3 @@ class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_Core_ViewHelper_Ab
 		return '';
 	}
 }
-
-?>
