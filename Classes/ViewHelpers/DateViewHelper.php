@@ -1,12 +1,12 @@
 <?php
 /**
  * For ViewHelper for fluid
- *
+ * 
  * Example:
- * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
- *
- *		  <moc:date format="Y-m-d H:i:s" timestamp="{element}" />
- *
+ * 		{namespace moc=Tx_MocHelpers_ViewHelpers} 
+ *			
+ *		  <moc:date timestamp="{element}" format="Y-m-d H:i:s" />
+ * 
  */
 class Tx_MocHelpers_ViewHelpers_DateViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
@@ -17,13 +17,9 @@ class Tx_MocHelpers_ViewHelpers_DateViewHelper extends Tx_Fluid_Core_ViewHelper_
 	 * @param string $timestamp The unix timestamp to be converted
 	 * @return string Rendered string
 	 * @author Aske Ertmann <aske@mocsystems.com>
-	 * @api
 	 */
-	public function render($timestamp, $format="d-m-Y") {
-		$date = date($format, $timestamp);
-		return $date;
+	public function render($timestamp, $format = 'd-m-Y') {
+		return date($format, $timestamp);
 	}
 
 }
-
-?>

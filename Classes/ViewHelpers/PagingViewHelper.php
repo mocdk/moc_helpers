@@ -15,7 +15,7 @@
  *		<li class="prev">
  *			<f:if condition="{resultData.currentPage} > 1">	
  *				<f:then>
- *					<f:link.action addQueryString="true" arguments="{page: resultData.currentPage, navigation: 'prev'}"><f:translate  key="navigation.previous" /></f:link.action>|
+ *					<f:link.action addQueryString="true" arguments="{page: resultData.currentPage}"><f:translate key="navigation.previous" /></f:link.action>|
  *				</f:then>
  *				<f:else>
  *					
@@ -31,7 +31,7 @@
  *						<f:if condition="{page} < 0 ">
  *							<f:then><a>&#8230;</a>|</f:then>
  *							<f:else>
- *								<f:link.action addQueryString="true" arguments="{page: page, navigation: 'default'}">{page}</f:link.action>|
+ *								<f:link.action addQueryString="true" arguments="{page: page}">{page}</f:link.action>|
  *							</f:else>
  *						</f:if>
  *					</f:else>
@@ -43,7 +43,7 @@
  *		<li class="next">
  *			<f:if condition="{resultData.currentPage} < {resultData.totalCount}">	
  *				<f:then>
- *					<f:link.action addQueryString="true" arguments="{page: resultData.currentPage, navigation: 'next'}"><f:translate  key="navigation.next" />&nbsp;&gt;</f:link.action>
+ *					<f:link.action addQueryString="true" arguments="{page: resultData.currentPage}"><f:translate  key="navigation.next" />&nbsp;&gt;</f:link.action>
  *				</f:then>
  *			<f:else>
  *					
