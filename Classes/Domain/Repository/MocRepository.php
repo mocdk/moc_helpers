@@ -92,6 +92,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	public function findOneOrInitializeBy($field, $value) {
 		$object = $this->findOneBy($field, $value);
 		if (empty($object)) {
+			//Here we really should use the Extbase object manager!
 			$object = new $this->objectType;
 		}
 		return $object;

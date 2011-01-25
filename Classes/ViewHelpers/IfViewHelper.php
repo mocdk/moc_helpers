@@ -93,7 +93,7 @@
  */
 
 
-class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_ViewHelpers_IfViewHelper  {
+class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper  {
 
 	/**
 	 * renders <f:then> child if $condition is true, otherwise renders <f:else> child.
@@ -109,6 +109,7 @@ class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_ViewHelpers_IfView
 	 * @api
 	 */
 	public function render($left, $right, $match = 'equals', $then = NULL, $else = NULL) {
+		print "Right: $right<br />";
 		switch($match) {
 			case '>':
 			case 'greaterThan':
@@ -145,6 +146,7 @@ class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_ViewHelpers_IfView
 				break;
 
 			default:
+				print "Testing if $left == $right <br />";
 				$condition = ($left == $right);
 				break;
 		}
