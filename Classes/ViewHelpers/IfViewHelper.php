@@ -95,21 +95,25 @@
 
 class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper  {
 
+	public function __construct() {
+		//This mus be called! Otherwise the paren constructor will fuck up the arguments
+	}
+	
 	/**
 	 * renders <f:then> child if $condition is true, otherwise renders <f:else> child.
 	 *
-	 * @param string $left View helper condition
-	 * @param string $right View helper condition
+	 * @param mixed $left View helper condition
+	 * @param mixed $right View helper condition
 	 * @param string $match View helper condition
 	 * @param string $then String to be returned if the condition is met
 	 * @param string $else String to be returned if the condition is not met
 	 * @return string the rendered string
-	 * @author Sebastian Kurfürst <sebastian@typo3.org>
-	 * @author Bastian Waidelich <bastian@typo3.org>
+	 * @author Aske Ertmann <aske@mocsystems.com>
+	 * @author Jan-Erik Revsbech <janerik@mocsystems.com>
 	 * @api
 	 */
 	public function render($left, $right, $match = 'equals', $then = NULL, $else = NULL) {
-		print "Right: $right<br />";
+		
 		switch($match) {
 			case '>':
 			case 'greaterThan':
@@ -146,7 +150,6 @@ class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_Core_ViewHelper_Ab
 				break;
 
 			default:
-				print "Testing if $left == $right <br />";
 				$condition = ($left == $right);
 				break;
 		}
