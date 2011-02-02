@@ -23,14 +23,18 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 * Find all objects with a given lidt of uids
 	 *
 	 * @param array $uids array of ids
+	 * @param integer $limit limit results
 	 */
-	public function findByUids($uids = array()) {
+	public function findByUids($uids = array(), $limit = 0) {
 		$this->query = $this->createQuery();
 		$criterion = $this->query->withUid(array_pop($uids));
 		if(is_array($uids)) {
 			foreach($uids as $uid) {
-				$criterion = $this->query->logicalOr($criterion, $this->query->withUid($uid));
+				$criterion = $this->query->logicalOr($criterion, $this->query->withUid(intval($uid)));
 			}
+		}
+		if(intval($limit) > 0) {
+			$this->query->setLimit(intval($limit));
 		}
 		return $this->query->matching($criterion)->execute();
 	}
