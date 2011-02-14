@@ -64,6 +64,8 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 	 * @return void
 	 */
 	protected function validateKey($data, $key, $value, $path = array()) {
+		
+		
 		if(!is_array($data)) {
 			return true;	
 		
@@ -136,7 +138,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 			$argument = array_shift($argumentPath);
 			
 			if(!array_key_exists($argument, $this->errors)) {
-				$this->errors[$argument] = $this->objectManager->getObject('Tx_Extbase_MVC_Controller_ArgumentError', $argument);
+				$this->errors[$argument] = $this->objectManager->create('Tx_Extbase_MVC_Controller_ArgumentError', $argument);				
 			}
 
 			$error = $this->errors[$argument];
@@ -146,7 +148,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 					if(is_numeric($property)) {
 						throw new MOC_Exception(sprintf('Numeric keys are not allowed as validation variables (%s) - array_merge renumbers numeric values.', $property));
 					}
-					$error->addErrors(array($property => $this->objectManager->getObject('Tx_Extbase_Validation_PropertyError', $property)));
+					$error->addErrors(array($property => $this->objectManager->create('Tx_Extbase_Validation_PropertyError', $property)));
 				}
 				$errors = $error->getErrors();
 				$error = $errors[$property];

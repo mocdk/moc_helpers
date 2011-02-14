@@ -22,10 +22,41 @@ abstract class Tx_MocHelpers_Validation_Abstract {
 	protected $objectManager;
 
 	/**
+	 *Tx_Extbase_Reflection_Service
+	 */
+	protected $reflectionService;
+	
+	/**
+	 * 
+	 * @param Tx_Extbase_Object_ObjectManager $manager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $manager) {
+		$this->objectManager = $manager;
+	}
+	
+	/**
+	 * 
+	 * Enter description here ...
+	 * @param Tx_Extbase_Reflection_Service $service
+	 */
+	public function injectReflectionService(Tx_Extbase_Reflection_Service $service) {
+		$this->reflectionService = $service;
+	}
+
+	/**
+	 * 
+	 * Enter description here ...
+	 * @param Tx_Extbase_Validation_ValidatorResolver $service
+	 */
+	public function injectValidatorResolver(Tx_Extbase_Validation_ValidatorResolver $resolver) {
+		$this->validatorResolver = $resolver;
+	}	
+	
+	/**
 	 * Object constructor
 	 */
 	public function __construct() {
-		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager');
+		/*$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager');
 
 		$reflectionService = t3lib_div::makeInstance('Tx_Extbase_Reflection_Service');
 		$validatorResolver = t3lib_div::makeInstance('Tx_Extbase_Validation_ValidatorResolver');
@@ -34,6 +65,7 @@ abstract class Tx_MocHelpers_Validation_Abstract {
 		$validatorResolver->injectReflectionService($reflectionService);
 
 		$this->validatorResolver = $validatorResolver;
+		*/
 	}
 
 	/*
