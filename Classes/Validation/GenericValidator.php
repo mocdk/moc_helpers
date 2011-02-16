@@ -6,7 +6,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 	 * @var array
 	 */
 	protected $errors = array();
-	
+
 	/**
 	 * @var array
 	 */
@@ -64,13 +64,13 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 	 * @return void
 	 */
 	protected function validateKey($data, $key, $value, $path = array()) {
-		
-		
+
+
 		if(!is_array($data)) {
-			return true;	
-		
+			return true;
+
 		}
-		
+
 		if($key === '*') {
 			foreach($data as $rowKey => $row) {
 				$rowPath = $path;
@@ -124,7 +124,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 		if(!is_array($rules)) {
 			return;
 		}
-	
+
 		foreach($rules as $rule => $arguments) {
 			
 			$validator = $this->validatorResolver->createValidator($rule, (array)$arguments);
@@ -134,11 +134,11 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 			}
 
 			$argumentPath = $path;
-			
+
 			$argument = array_shift($argumentPath);
-			
+
 			if(!array_key_exists($argument, $this->errors)) {
-				$this->errors[$argument] = $this->objectManager->create('Tx_Extbase_MVC_Controller_ArgumentError', $argument);				
+				$this->errors[$argument] = $this->objectManager->create('Tx_Extbase_MVC_Controller_ArgumentError', $argument);
 			}
 
 			$error = $this->errors[$argument];
