@@ -13,9 +13,8 @@ class Tx_MocHelpers_Validation_ObjectValidator extends Tx_MocHelpers_Validation_
 	 * Object constructor
 	 *
 	 */
-	public function __construct() {
-		parent::__construct();
-		$this->validatingObjects = new Tx_Extbase_Persistence_ObjectStorage();
+	public function initializeObject() {
+		$this->validatingObjects = $this->objectManager->create('Tx_Extbase_Persistence_ObjectStorage');
 	}
 
 	/**

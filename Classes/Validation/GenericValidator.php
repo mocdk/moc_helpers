@@ -65,7 +65,6 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 	 */
 	protected function validateKey($data, $key, $value, $path = array()) {
 
-
 		if(!is_array($data)) {
 			return true;
 
@@ -129,7 +128,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 			
 			$validator = $this->validatorResolver->createValidator($rule, (array)$arguments);
 
-			if($validator->isValid($data)) {
+			if($validator->isValid($data, array('path' => $path, 'data' => $this->data))) {
 				continue;
 			}
 

@@ -1,6 +1,8 @@
 <?php
 class Tx_MocHelpers_Domain_Validator {
+
 	protected static $validators = array();
+
 	/**
 	 * Get validator for a given class
 	 *
@@ -8,8 +10,8 @@ class Tx_MocHelpers_Domain_Validator {
 	 */
 	public static function getValidator($class) {
 		if (!array_key_exists($class, self::$validators)) {
-			$reflectionService = t3lib_div::makeInstance('Tx_Extbase_Reflection_Service');
 			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager');
+			$reflectionService = t3lib_div::makeInstance('Tx_Extbase_Reflection_Service');
 			$validatorResolver = t3lib_div::makeInstance('Tx_Extbase_Validation_ValidatorResolver');
 
 			$validatorResolver->injectObjectManager($objectManager);
@@ -18,4 +20,5 @@ class Tx_MocHelpers_Domain_Validator {
 		}
 		return self::$validators[$class]->getBaseValidatorConjunction($class);
 	}
+
 }

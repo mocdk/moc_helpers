@@ -3,16 +3,11 @@
 abstract class Tx_MocHelpers_Validation_Abstract {
 
 	/**
-	 * @var array An array of Tx_Extbase_Validation_Error for the step
+	 * An array of Tx_Extbase_Validation_Error for the step
+	 *
+	 * @var array
 	 */
 	protected $errors = null;
-
-	/**
-	 * The validator resolver that the controller was initialized with
-	 *
-	 * @var Tx_Extbase_Validation_ValidatorResolver
-	 */
-	protected $validatorResolver;
 
 	/**
 	 * The object manager that the controller was initialized with
@@ -22,12 +17,18 @@ abstract class Tx_MocHelpers_Validation_Abstract {
 	protected $objectManager;
 
 	/**
-	 *Tx_Extbase_Reflection_Service
+	 * @var Tx_Extbase_Reflection_Service
 	 */
 	protected $reflectionService;
 	
 	/**
-	 * 
+	 * The validator resolver that the controller was initialized with
+	 *
+	 * @var Tx_Extbase_Validation_ValidatorResolver
+	 */
+	protected $validatorResolver;
+	
+	/**
 	 * @param Tx_Extbase_Object_ObjectManager $manager
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $manager) {
@@ -51,22 +52,6 @@ abstract class Tx_MocHelpers_Validation_Abstract {
 	public function injectValidatorResolver(Tx_Extbase_Validation_ValidatorResolver $resolver) {
 		$this->validatorResolver = $resolver;
 	}	
-	
-	/**
-	 * Object constructor
-	 */
-	public function __construct() {
-		/*$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager');
-
-		$reflectionService = t3lib_div::makeInstance('Tx_Extbase_Reflection_Service');
-		$validatorResolver = t3lib_div::makeInstance('Tx_Extbase_Validation_ValidatorResolver');
-
-		$validatorResolver->injectObjectManager($this->objectManager);
-		$validatorResolver->injectReflectionService($reflectionService);
-
-		$this->validatorResolver = $validatorResolver;
-		*/
-	}
 
 	/*
 	 * @return void
