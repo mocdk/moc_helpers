@@ -1,5 +1,4 @@
 <?php
-
 class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation_Abstract {
 
 	/**
@@ -64,9 +63,8 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 	 * @return void
 	 */
 	protected function validateKey($data, $key, $value, $path = array()) {
-
 		if(!is_array($data)) {
-			return true;
+			return TRUE;
 
 		}
 
@@ -125,7 +123,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 		}
 
 		foreach($rules as $rule => $arguments) {
-			
+
 			$validator = $this->validatorResolver->createValidator($rule, (array)$arguments);
 
 			if($validator->isValid($data, array('path' => $path, 'data' => $this->data))) {
@@ -178,7 +176,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 			return $return;
 		}
 
-		if(stristr('.', $input) !== false) {
+		if(stristr('.', $input) !== FALSE) {
 			list($table, $input) = explode('.', $input);
 		}
 
