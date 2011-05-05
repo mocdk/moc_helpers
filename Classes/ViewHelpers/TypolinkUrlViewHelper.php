@@ -25,15 +25,14 @@ class Tx_MocHelpers_ViewHelpers_TypolinkUrlViewHelper extends Tx_Fluid_Core_View
 
 
 	/**
-	 * @param String $parameter
-	 * @param String $additionalParams
-	 * @return String URI
+	 * @param string $parameter
+	 * @param string $additionalParams
+	 * @return string URI
 	 */
 	public function render($parameter,$additionalParams='') {
 		$conf['parameter'] = $parameter;
 		$conf['additionalParams'] = $additionalParams;
 		return $this->cObj->typolink_URL($conf);
 	}
-}
 
-?>
+}

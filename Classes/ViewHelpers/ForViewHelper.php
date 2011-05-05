@@ -1,19 +1,19 @@
 <?php
 /**
  * For ViewHelper for fluid
- *
+ * 
  * Example:
- * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
- *
+ * 		{namespace moc=Tx_MocHelpers_ViewHelpers} 
+ *			
  *		  <moc:for each="{parameter}" as="element"></moc:for>
- *
+ * 
  */
 class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
-	 * Iterates through elements of $each and renders child nodes with additional split in between var (not appended in end of array)
+	 * Iterates through elements of $each and renders child nodes with additional split in between var (not appended in end of array) 
 	 *
-	 * @param array $each The array or SplObjectStorage to iterated over
+	 * @param mixed $each The array or SplObjectStorage to iterated over
 	 * @param string $as The name of the iteration variable
 	 * @param string $splitter The string of which to split the strings with
 	 * @param string $key The name of the variable to store the current array key
@@ -28,24 +28,24 @@ class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_A
 	 */
 	public function render($each, $as, $splitter, $key = '', $reverse = FALSE) {
 		$output = '';
-		if ($each === NULL) {
+		if($each === NULL) {
 			return '';
 		}
-		if (is_object($each)) {
-			if (!$each instanceof Traversable) {
+		if(is_object($each)) {
+			if(!$each instanceof Traversable) {
 				throw new Tx_Fluid_Core_ViewHelper_Exception('ForViewHelper only supports arrays and objects implementing Traversable interface' , 1248728393);
 			}
 			$each = $this->convertToArray($each);
 		}
 
-		if ($reverse === TRUE) {
+		if($reverse === TRUE) {
 			$each = array_reverse($each);
 		}
-
+		
 		$output = '';
-		foreach ($each as $keyValue => $singleElement) {
+		foreach($each as $keyValue => $singleElement) {
 			$this->templateVariableContainer->add($as, $singleElement);
-			if ($key !== '') {
+			if($key !== '') {
 				$this->templateVariableContainer->add($key, $keyValue);
 			}
 			if($singleElement === end($each)) {
@@ -54,7 +54,7 @@ class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_A
 				$output .= $this->renderChildren().$splitter;
 			}
 			$this->templateVariableContainer->remove($as);
-			if ($key !== '') {
+			if($key !== '') {
 				$this->templateVariableContainer->remove($key);
 			}
 			$i++;
@@ -72,11 +72,9 @@ class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_A
 	 */
 	protected function convertToArray(Traversable $object) {
 		$array = array();
-		foreach ($object as $keyValue => $singleElement) {
+		foreach($object as $keyValue => $singleElement) {
 			$array[$keyValue] = $singleElement;
 		}
 		return $array;
 	}
 }
-
-?>

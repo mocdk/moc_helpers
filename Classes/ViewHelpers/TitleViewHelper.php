@@ -8,12 +8,14 @@ class Tx_MocHelpers_ViewHelpers_TitleViewHelper extends Tx_Fluid_Core_ViewHelper
 	 * @param boolean $prependPageTitle
 	 * @param boolean $appendPageTitle
 	 * @param string $splitString
+	 * @return void
 	 */
 	public function render($title = '', $onlyDocumentTitle = false, $onlyIndexedTitle = false, $prependPageTitle = false, $appendPageTitle = false, $splitString = ' - ') {
 		if($title === '') {
 			$title = $this->renderChildren();
 		}
-		if(trim($title) !== '') {
+		$title = trim($title);
+		if($title !== '') {
 			if($prependPageTitle || $appendPageTitle) {
 				$originalTitle = empty($GLOBALS['TSFE']->cObj->data['nav_title']) ? $GLOBALS['TSFE']->cObj->data['title'] : $GLOBALS['TSFE']->cObj->data['nav_title'];
 				if($prependPageTitle) {

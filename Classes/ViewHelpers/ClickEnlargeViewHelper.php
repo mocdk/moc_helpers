@@ -5,7 +5,7 @@
  * Example:
  * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
  *
- *		  <moc:clickenlarge path="path/to/image/file.ext" />
+ *		  <moc:clickEnlarge path="path/to/image/file.ext" />
  *
  */
 class Tx_MocHelpers_ViewHelpers_ClickEnlargeViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
@@ -24,14 +24,14 @@ class Tx_MocHelpers_ViewHelpers_ClickEnlargeViewHelper extends Tx_Fluid_Core_Vie
 	}
 
 	/**
-	 * @param String $path
-	 * @param String $width
-	 * @param String $height
-	 * @param String $params
-	 * @param String $alt
-	 * @param String $maxWidth
-	 * @param String $maxHeight
-	 * @return String content wrapped in link as clickenlarge
+	 * @param string $path
+	 * @param string $width
+	 * @param string $height
+	 * @param string $params
+	 * @param string $alt
+	 * @param string $maxWidth
+	 * @param string $maxHeight
+	 * @return string content wrapped in link as clickenlarge
 	 */
 	public function render($path, $width='', $height='', $params='', $alt='', $maxWidth='', $maxHeight='') {
 		
