@@ -1,6 +1,5 @@
 <?php
-
-Abstract class Tx_MocHelpers_Controller_TaskController extends tx_scheduler_Task {
+abstract class Tx_MocHelpers_Controller_TaskController extends tx_scheduler_Task {
 
 	/**
 	 * Tx_MocHelpers_Extbase_Dispatcher
@@ -8,40 +7,33 @@ Abstract class Tx_MocHelpers_Controller_TaskController extends tx_scheduler_Task
 	protected $dispatcher;
 
 	/**
-	 *
-	 * @return array or null;
+	 * @return array or NULL
 	 */
 	abstract protected function getConfiguration();
+	
+	public function setScheduler() {
+		parent::setScheduler();
+		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$configurationManager = $this->objectManager->get('Tx_Extbase_Configuration_ConfigurationManager');
+		$configurationManager->injectObjectManager($this->objectManager);
+		$configurationManager->setConfiguration($this->getConfiguration());
+		$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
 
-	protected function initializeExtbaseAndPersistence() {
-		$this->dispatcher = t3lib_div::makeInstance('Tx_MocHelpers_Extbase_Dispatcher');
-		if(is_array($this->getConfiguration())) {
-			$this->dispatcher->initializeConfigurationManagerAndFrameworkConfiguration($this->getConfiguration());
-		}
-		$this->dispatcher->getPersistenceManager();
+		$this->dispatcher = $this->objectManager->create('Tx_Extbase_Dispatcher');
+		$this->dispatcher->injectConfigurationManager($configurationManager);
+		$this->dispatcher->injectPersistenceManager($persistenceManager);
 	}
 
 	protected function shutDownExtbaseAndPersistence() {
-		if($this->dispatcher instanceof Tx_MocHelpers_Extbase_Dispatcher) {
-			try {
-				$this->dispatcher->getPersistenceManager()->persistAll();
-			} catch (Exception $e) {
-				var_dump($e->getMessage());
-			}
+		if($this->objectManager === NULL) {
+			return;
 		}
-	}
-
-	public function __construct(){
-		parent::__construct();
-		$this->initializeExtbaseAndPersistence();
+		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+		$this->objectManager = NULL;
 	}
 
 	public function __destruct() {
 		$this->shutDownExtbaseAndPersistence();
-	}
-
-	public function __wakeup(){
-		$this->initializeExtbaseAndPersistence();
 	}
 
 	public function __sleep() {
