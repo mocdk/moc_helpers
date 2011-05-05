@@ -1,5 +1,4 @@
 <?php
-
 class Tx_MocHelpers_Validation_ObjectValidator extends Tx_MocHelpers_Validation_Abstract {
 
 	/**
@@ -12,8 +11,10 @@ class Tx_MocHelpers_Validation_ObjectValidator extends Tx_MocHelpers_Validation_
 	/**
 	 * Object constructor
 	 *
+	 * @return void
 	 */
 	public function initializeObject() {
+		parent::initializeObject();
 		$this->validatingObjects = $this->objectManager->create('Tx_Extbase_Persistence_ObjectStorage');
 	}
 
