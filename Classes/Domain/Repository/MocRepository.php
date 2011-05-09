@@ -6,10 +6,10 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 *
 	 * @var boolean
 	 */
-	protected $respectStoragePage = false;
+	protected $respectStoragePage = FALSE;
 
 	/**
-	  * Override the RespectStoragePage setting
+	 * Override the RespectStoragePage setting
 	 *
 	 * @return Tx_Extbase_Persistence_QueryInterface
 	 */
@@ -47,9 +47,9 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 * @return array
 	 */
 	public function findBy($field, $value) {
-		$Query = $this->createQuery();
-		$Criterion = $Query->equals($field, $value);
-		return $Query->matching($Criterion)->execute();
+		$query = $this->createQuery();
+		$criterion = $query->equals($field, $value);
+		return $query->matching($criterion)->execute();
 	}
 
 	/**
@@ -60,9 +60,9 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 * @return integer
 	 */
 	public function countBy($field, $value) {
-		$Query = $this->createQuery();
-		$Criterion = $Query->equals($field, $value);
-		return $Query->matching($Criterion)->count();
+		$query = $this->createQuery();
+		$criterion = $query->equals($field, $value);
+		return $query->matching($criterion)->count();
 	}
 
 	/**
@@ -70,14 +70,12 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 *
 	 * @param string $field
 	 * @param mixed $value
-	 * @return Tx_Extbase_DomainObject_AbstractEntity|null
+	 * @return Tx_Extbase_DomainObject_AbstractEntity|NULL
 	 */
 	public function findOneBy($field, $value) {
 		$query = $this->createQuery();
-		$result = $query->matching($query->equals($field, $value))
-    		->setLimit(1)
-    		->execute();
-		$object = null;
+		$result = $query->matching($query->equals($field, $value))->setLimit(1)->execute();
+		$object = NULL;
 		if (count($result) > 0) {
     		$object = current($result);
 		}
@@ -87,7 +85,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	/**
 	 * Find just one record by a field / value combination
 	 *
-	 * |f the record does not exist, initialize a new one
+	 * If the record does not exist, initialize a new one
 	 *
 	 * @param string $field
 	 * @param mixed $value
@@ -96,7 +94,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	public function findOneOrInitializeBy($field, $value) {
 		$object = $this->findOneBy($field, $value);
 		if (empty($object)) {
-			//Here we really should use the Extbase object manager!
+			// Here we really should use the Extbase object manager!
 			$object = new $this->objectType;
 		}
 		return $object;
@@ -182,7 +180,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 
 	public function logicalOrs($queries) {
 		if(!$this->query) {
-			$this->quuery = $this->createQuery();
+			$this->query = $this->createQuery();
 		}
 		$combined_ors = array_pop($queries);
 		if (count($queries)) {
@@ -192,4 +190,5 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 		}
 		return $combined_ors;
 	}
+
 }
