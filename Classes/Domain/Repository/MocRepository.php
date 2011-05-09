@@ -171,10 +171,10 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 			throw new Tx_Extbase_Persistence_Exception_UnknownObject('The "object" does not have an existing counterpart in this repository.', 1249479819);
 		}
 
-		return 1 === $this->countByUid($uid);
+		return (1 === $this->countByUid($uid));
 	}
 
-	public function saveAll(){
+	public function saveAll() {
 		$this->persistenceManager->persistAll();
 	}
 
