@@ -202,8 +202,7 @@ class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_Core_ViewHelper_Ab
 		foreach ($this->childNodes as $childNode) {
 			if ($childNode instanceof Tx_Fluid_Core_Parser_SyntaxTree_ViewHelperNode
 				&& $childNode->getViewHelperClassName() === 'Tx_Fluid_ViewHelpers_ThenViewHelper') {
-				$childNode->setRenderingContext($this->renderingContext);
-				$data = $childNode->evaluate();
+				$data = $childNode->evaluate($this->renderingContext);
 				return $data;
 			}
 		}
@@ -223,8 +222,7 @@ class Tx_MocHelpers_ViewHelpers_IfViewHelper extends Tx_Fluid_Core_ViewHelper_Ab
 		foreach ($this->childNodes as $childNode) {
 			if ($childNode instanceof Tx_Fluid_Core_Parser_SyntaxTree_ViewHelperNode
 				&& $childNode->getViewHelperClassName() === 'Tx_Fluid_ViewHelpers_ElseViewHelper') {
-				$childNode->setRenderingContext($this->renderingContext);
-				return $childNode->evaluate();
+				return $childNode->evaluate($this->renderingContext);
 			}
 		}
 		if ($this->arguments->hasArgument('else')) {
