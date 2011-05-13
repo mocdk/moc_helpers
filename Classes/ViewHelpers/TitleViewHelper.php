@@ -12,7 +12,7 @@ class Tx_MocHelpers_ViewHelpers_TitleViewHelper extends Tx_Fluid_Core_ViewHelper
 	 */
 	public function render($title = '', $onlyDocumentTitle = false, $onlyIndexedTitle = false, $prependPageTitle = false, $appendPageTitle = false, $splitString = ' - ') {
 		if($title === '') {
-			$title = $this->renderChildren();
+			$title = html_entity_decode($this->renderChildren());
 		}
 		$title = trim($title);
 		if($title !== '') {
