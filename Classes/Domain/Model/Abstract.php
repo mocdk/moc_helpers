@@ -1,6 +1,6 @@
 <?php
-
 class Tx_MocHelpers_Domain_Model_Abstract extends Tx_Extbase_DomainObject_AbstractEntity {
+
 	/**
 	 * Check if the domain model validates according to its validation annotations
 	 *
@@ -50,4 +50,5 @@ class Tx_MocHelpers_Domain_Model_Abstract extends Tx_Extbase_DomainObject_Abstra
 	public function getValidator() {
 		return Tx_MocHelpers_Domain_Validator::getValidator(get_class($this));
 	}
+
 }
