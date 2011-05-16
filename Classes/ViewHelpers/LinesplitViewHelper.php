@@ -29,9 +29,12 @@ class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHe
 	 * @api
 	 */
 	public function render($text, $as, $width = 70, $cut = false, $maxlines = 0, $ellipsis = false) {
-	$maxlines = 4;
-		$words = array();
-		foreach(preg_split('%[\n,]+%', $text) as $line) {
+		$maxlines = 4;
+		
+		$words = array();		
+		
+
+		foreach(preg_split('%[\r\n]+%', $text) as $line) {
 			foreach(explode(' ', $line) as $word) {
 				$split_word = wordwrap($word, $width, '********', $cut);
 				foreach(explode('********', $split_word) as $splitted_word) {
@@ -41,7 +44,7 @@ class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHe
 				}
 			}
 		}
-
+		
 		$stripped_words = wordwrap(strip_tags($text), $width, '********', $cut);
 		$count = 0;
 		$word_count = 0;
@@ -58,7 +61,7 @@ class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHe
 	
 		foreach($splitted_words as $keyValue => $singleElement) {
 			$element_words = array();
-			foreach(preg_split('%[\n,]+%', $singleElement) as $line) {
+			foreach(preg_split('%[\r\n]+%', $singleElement) as $line) {
 				$word_split = explode(' ', trim($line));
 				foreach($word_split as $key => $value) {
 					if(empty($value)) {
