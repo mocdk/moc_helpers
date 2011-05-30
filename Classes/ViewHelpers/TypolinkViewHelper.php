@@ -34,6 +34,7 @@ class Tx_MocHelpers_ViewHelpers_TypolinkViewHelper extends Tx_Fluid_Core_ViewHel
 		$conf['parameter'] = $parameter;
 		$conf['title'] = $title;
 		$conf['additionalParams'] = $additionalParams;
+		$conf['ATagParams'] = sprintf('class="%s"', $class);
 		if(stristr($parameter, '.')) {
 			$conf['extTarget'] = '_blank';
 		}

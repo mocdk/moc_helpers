@@ -353,8 +353,14 @@ class Tx_MocHelpers_ViewHelpers_FunctionViewHelper extends Tx_Fluid_Core_ViewHel
 
 			case 'addcslashes':
 				return addcslashes((string)$a, (string)$b);
+
+			case 'range':
+				if($int_c) {
+					return range((int)$a, (int)$b, (int)$c);
+				}
+				return range((int)$a, (int)$b);
 		}
-		
+
 		// Throw new exception if the given function doesn't have a matching case
 		throw new Tx_Fluid_Core_ViewHelper_Exception('Function not allowed in function viewhelper: "' . htmlspecialchars($f) . '".', 1300267763);
 	}

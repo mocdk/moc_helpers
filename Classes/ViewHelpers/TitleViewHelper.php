@@ -10,18 +10,18 @@ class Tx_MocHelpers_ViewHelpers_TitleViewHelper extends Tx_Fluid_Core_ViewHelper
 	 * @param string $splitString
 	 * @return void
 	 */
-	public function render($title = '', $onlyDocumentTitle = false, $onlyIndexedTitle = false, $prependPageTitle = false, $appendPageTitle = false, $splitString = ' - ') {
+	public function render($title = '', $onlyDocumentTitle = FALSE, $onlyIndexedTitle = FALSE, $prependPageTitle = FALSE, $appendPageTitle = FALSE, $splitString = ' - ') {
 		if($title === '') {
-			$title = html_entity_decode($this->renderChildren());
+			$title = $this->renderChildren();
 		}
-		$title = trim($title);
+		$title = trim(html_entity_decode($title));
 		if($title !== '') {
 			if($prependPageTitle || $appendPageTitle) {
 				$originalTitle = empty($GLOBALS['TSFE']->cObj->data['nav_title']) ? $GLOBALS['TSFE']->cObj->data['title'] : $GLOBALS['TSFE']->cObj->data['nav_title'];
 				if($prependPageTitle) {
-					$title = $originalTitle.$splitString.$title;
+					$title = $originalTitle . $splitString . $title;
 				} else {
-					$title .= $splitString.$originalTitle;
+					$title .= $splitString . $originalTitle;
 				}
 			}
 			if(!$onlyIndexedTitle) {
@@ -30,6 +30,7 @@ class Tx_MocHelpers_ViewHelpers_TitleViewHelper extends Tx_Fluid_Core_ViewHelper
 			if(!$onlyDocumentTitle) {
 				$GLOBALS['TSFE']->indexedDocTitle = $title;
 			}
+			$GLOBALS['TSFE']->cObj->data['title'] = $title;
 		}
 	}
 
