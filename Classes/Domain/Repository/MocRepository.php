@@ -75,11 +75,10 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	public function findOneBy($field, $value) {
 		$query = $this->createQuery();
 		$result = $query->matching($query->equals($field, $value))->setLimit(1)->execute();
-		$object = NULL;
-		if (count($result) > 0) {
-    		$object = current($result);
+		if ($result->count() > 0) {
+			return $result->getFirst();
 		}
-		return $object;
+		return NULL;
 	}
 
 	/**
