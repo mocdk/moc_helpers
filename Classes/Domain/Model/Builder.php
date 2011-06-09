@@ -7,17 +7,17 @@ class Tx_MocHelpers_Domain_Model_Builder {
 	 * @param mixed $object The classname to add properties to
 	 * @param array $data The list of properties to add to the object
 	 * @return object
-	 * @deprecated 
+	 * @deprecated
 	 */
 	public static function convertDataToObject($object, $data = array()) {
 		return self::updateValuesOnObject($object, $data);
 	}
-	
+
 	/**
-	 * Convert a list (or all) properites from the step data into an object. If the object already exists, we just updates all properties from 
+	 * Convert a list (or all) properites from the step data into an object. If the object already exists, we just updates all properties from
 	 * the data array.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param mixed $object The classname to add properties to
 	 * @param array $data The list of properties to add to the object
 	 * @return object
@@ -42,6 +42,8 @@ class Tx_MocHelpers_Domain_Model_Builder {
 				$type = $propertyMetaData['elementType'];
 			} elseif (!empty($propertyMetaData['type'])) {
 				$type = $propertyMetaData['type'];
+			} else {
+				unset($type);
 			}
 
 			if (class_exists($type) && !is_object($value)) {
