@@ -28,13 +28,19 @@ class Tx_MocHelpers_ViewHelpers_TypolinkViewHelper extends Tx_Fluid_Core_ViewHel
 	 * @param string $additionalParams
 	 * @param string $title
 	 * @param string $class
+	 * @param string $ATagParams
 	 * @return string content wrapped in link
 	 */
-	public function render($parameter, $additionalParams='', $title='', $class='') {
+	public function render($parameter, $additionalParams='', $title='', $class='', $ATagParams='') {
 		$conf['parameter'] = $parameter;
 		$conf['title'] = $title;
 		$conf['additionalParams'] = $additionalParams;
-		$conf['ATagParams'] = sprintf('class="%s"', $class);
+		if(!empty($class)) {
+			$conf['ATagParams'] = sprintf('class="%s"', $class);
+		}
+		if(!empty($ATagParams)) {
+			$conf['ATagParams'] = $conf['ATagParams'] . ' ' . $ATagParams;
+		}
 		if(stristr($parameter, '.')) {
 			$conf['extTarget'] = '_blank';
 		}
