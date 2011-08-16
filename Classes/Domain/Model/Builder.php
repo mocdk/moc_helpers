@@ -47,8 +47,8 @@ class Tx_MocHelpers_Domain_Model_Builder {
 			}
 
 			if (class_exists($type) && !is_object($value)) {
-				if(isset($value['__identity'])) {
-					$value = $value['__identity'];
+				if (is_array($value) && isset($value['__identity'])) {
+					$value = intval($value['__identity']);
 				}
 				$result = $dataMapper->fetchRelated($object, $key, $value);
 				$value = $dataMapper->mapResultToPropertyValue($object, $key, $result);
