@@ -53,58 +53,53 @@
  *
  *
  */
+class Tx_MocHelpers_ViewHelpers_PagingViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
-class Tx_MocHelpers_ViewHelpers_PagingViewHelper  extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
-
-	public function __construct(){
-
-	}
 	/**
-	 * @param Integer $totalResults
-	 * @param Integer $currentPage Starting at 1
-	 * @param Integer $resultsPerPage
-	 * @param Integer $numberOfPagesToShow
-	 * @return MixIntegered
+	 * @param integer $totalResults
+	 * @param integer $currentPage
+	 * @param integer $resultsPerPage
+	 * @param integer $numberOfPagesToShow
+	 * @return array
 	 */
-	public function render($totalResults,$currentPage=1,$resultsPerPage=10,$numberOfPagesToShow=10){
-		$numberOfPages = ceil($totalResults/$resultsPerPage);		
+	public function render($totalResults, $currentPage = 1, $resultsPerPage = 10, $numberOfPagesToShow = 10){
+		$numberOfPages = ceil($totalResults / $resultsPerPage);
 		$pageRange = array();
-		if($numberOfPages > 2) {
+		if ($numberOfPages > 2) {
 			$numberOfPagesToShow -= 2;
-			$pageRange = $this->findPageRange($numberOfPages,$currentPage,$numberOfPagesToShow);
+			$pageRange = $this->findPageRange($numberOfPages, $currentPage, $numberOfPagesToShow);
 		}
-		if($numberOfPages>0) {
-			array_unshift($pageRange,1);
+		if ($numberOfPages > 0) {
+			array_unshift($pageRange, 1);
 		}
-		array_push($pageRange,$numberOfPages);
+		array_push($pageRange, $numberOfPages);
+
 		return $pageRange;
-		
 	}
 
-	protected function findPageRange($numberOfPages,$currentPage,$numberOfPagesToShow) {
-		$halfThePagesToShow = floor($numberOfPagesToShow/2);
-		if($numberOfPages <= $numberOfPagesToShow OR $currentPage <= $halfThePagesToShow) {
-			$pageRange = range(2,min($numberOfPagesToShow+1,$numberOfPages-1));
+	protected function findPageRange($numberOfPages, $currentPage, $numberOfPagesToShow) {
+		$halfThePagesToShow = floor($numberOfPagesToShow / 2);
+		if (($numberOfPages <= $numberOfPagesToShow) || ($currentPage <= $halfThePagesToShow)) {
+			$pageRange = range(2, min($numberOfPagesToShow + 1,$numberOfPages-1));
 		} elseif($currentPage >= ($numberOfPages - $halfThePagesToShow)) {
 			$pageRange = range($numberOfPages - $numberOfPagesToShow, $numberOfPages - 1);
 		} else {
 			$startIndex = $currentPage - $halfThePagesToShow + 1;
-			$startIndex = max(2,$startIndex);
+			$startIndex = max(2, $startIndex);
 			$pageRange = range($startIndex, $startIndex + $numberOfPagesToShow - 1);
 		}
 
-
-		if($pageRange[0] != 2) {
+		if ($pageRange[0] != 2) {
 			$pageRange[0] = -1;
 		}
-		$lastEntry = $numberOfPagesToShow-1;
-		
+
+		$lastEntry = $numberOfPagesToShow - 1;
 
 		if($pageRange[$lastEntry] != ($numberOfPages-1) && intval($pageRange[$lastEntry])) {
 			$pageRange[$lastEntry] = -1;
 		}
 
 		return $pageRange;
-
 	}
+
 }
