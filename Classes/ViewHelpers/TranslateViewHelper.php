@@ -3,7 +3,7 @@
  * Translate a key from locallang. The files are loaded from the folder
  * "Resources/Private/Language/".
  */
-class Tx_MocShop_ViewHelpers_TranslateViewHelper extends Tx_Fluid_ViewHelpers_TranslateViewHelper {
+class Tx_MocHelpers_ViewHelpers_TranslateViewHelper extends Tx_Fluid_ViewHelpers_TranslateViewHelper {
 
 	/**
 	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
