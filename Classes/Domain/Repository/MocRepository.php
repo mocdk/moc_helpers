@@ -18,7 +18,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 		$query->getQuerySettings()->setRespectStoragePage($this->respectStoragePage);
 		return $query;
 	}
-	
+
 	/**
 	 * Find all objects with a given lidt of uids
 	 *
@@ -27,10 +27,10 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 */
 	public function findByUids($uids = array(), $limit = 0) {
 		$this->query = $this->createQuery();
-		$criterion = $this->query->withUid(array_pop($uids));
+		$criterion = $this->query->equals('uid',array_pop($uids));
 		if(is_array($uids)) {
 			foreach($uids as $uid) {
-				$criterion = $this->query->logicalOr($criterion, $this->query->withUid(intval($uid)));
+				$criterion = $this->query->logicalOr($criterion, $this->query->equals('uid',intval($uid)));
 			}
 		}
 		if(intval($limit) > 0) {
