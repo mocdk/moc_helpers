@@ -359,6 +359,11 @@ class Tx_MocHelpers_ViewHelpers_FunctionViewHelper extends Tx_Fluid_Core_ViewHel
 					return range((int)$a, (int)$b, (int)$c);
 				}
 				return range((int)$a, (int)$b);
+			case 'in_array':
+				if(is_array($b)) {
+					return in_array($a, $b);
+				}
+				return FALSE;
 		}
 
 		// Throw new exception if the given function doesn't have a matching case
