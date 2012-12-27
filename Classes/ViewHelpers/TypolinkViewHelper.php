@@ -1,51 +1,23 @@
 <?php
+namespace MOC\MocHelpers\ViewHelpers;
+
 /**
- * Typolink ViewHelper for fluid
+ * Typolink view helper for Fluid
  *
  * Example:
- * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
+ * 		{namespace moc=\MOC\MocHelpers\ViewHelpers}
  *
- *		  <moc:typolink parameter="{TypolinkCompatibleParameter}" />
+ *		  <moc:typolink configuration="{parameter: pageUid, ATagParams: 'class="link"'}" />
  *
  */
-class Tx_MocHelpers_ViewHelpers_TypolinkViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class TypolinkViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
-	 *
-	 * @var tslib_cObj
+	 * @param array $configuration
+	 * @return string
 	 */
-	static private $cObj;
-
-	public function __construct() {
-		if(!$this->cObj instanceof tslib_cObj) {
-			$this->cObj = t3lib_div::makeInstance('tslib_cObj');
-		}
-
-	}
-
-	/**
-	 * @param string $parameter
-	 * @param string $additionalParams
-	 * @param string $title
-	 * @param string $class
-	 * @param string $ATagParams
-	 * @return string content wrapped in link
-	 */
-	public function render($parameter, $additionalParams='', $title='', $class='', $ATagParams='') {
-		$conf['parameter'] = $parameter;
-		$conf['title'] = $title;
-		$conf['additionalParams'] = $additionalParams;
-		if(!empty($class)) {
-			$conf['ATagParams'] = sprintf('class="%s"', $class);
-		}
-		if(!empty($ATagParams)) {
-			$conf['ATagParams'] = $conf['ATagParams'] . ' ' . $ATagParams;
-		}
-		if(stristr($parameter, '.')) {
-			$conf['extTarget'] = '_blank';
-		}
-
-		return str_replace('target="_blank"', 'rel="external"', $this->cObj->typolink($this->renderChildren(), $conf));
+	public function render($configuration) {
+		return $GLOBALS['TSFE']->cObj->typolink($this->renderChildren(), $configuration);
 	}
 
 }
