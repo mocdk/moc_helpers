@@ -1,6 +1,7 @@
 <?php
+namespace MOC\MocHelpers\ViewHelpers\Uri;
 
-class Tx_MocHelpers_ViewHelpers_Uri_ImageViewHelper extends Tx_Fluid_ViewHelpers_Uri_ImageViewHelper {
+class ImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Uri\ImageViewHelper {
 
 	/**
 	 * Resizes the image (if required) and returns its path. If the image was not resized, the path will be equal to $src
@@ -19,13 +20,13 @@ class Tx_MocHelpers_ViewHelpers_Uri_ImageViewHelper extends Tx_Fluid_ViewHelpers
 	 * @author Christian Baer <chr.baer@googlemail.com> - extended by Nikolaj Pedersen - 20-10-2011 <nikolaj@moc.net>
 	 */
 	public function render($src, $width = NULL, $height = NULL, $minWidth = NULL, $minHeight = NULL, $maxWidth = NULL, $maxHeight = NULL, $absolute = FALSE) {
-
 		$uri = parent::render($src, $width, $height, $minWidth, $minHeight, $maxWidth, $maxHeight);
 
-		if ($absolute) {
+		if ($absolute === TRUE) {
 			$uri = $this->controllerContext->getRequest()->getBaseURI() . $uri;
 		}
 
 		return $uri;
 	}
+
 }
