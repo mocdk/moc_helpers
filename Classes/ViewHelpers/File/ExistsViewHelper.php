@@ -1,5 +1,7 @@
 <?php
-class Tx_MocHelpers_ViewHelpers_File_ExistsViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
+namespace MOC\MocHelpers\ViewHelpers\File;
+
+class ExistsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Check if a file exists

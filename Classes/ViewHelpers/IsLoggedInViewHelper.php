@@ -1,5 +1,7 @@
 <?php
-class Tx_MocHelpers_ViewHelpers_IsLoggedInViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
+namespace MOC\MocHelpers\ViewHelpers;
+
+class IsLoggedInViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 	/**
 	 * Check if a a user whith a specific id is logged in
