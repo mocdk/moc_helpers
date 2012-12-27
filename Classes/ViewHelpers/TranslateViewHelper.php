@@ -1,20 +1,18 @@
 <?php
-/**
- * Translate a key from locallang. The files are loaded from the folder
- * "Resources/Private/Language/".
- */
-class Tx_MocHelpers_ViewHelpers_TranslateViewHelper extends Tx_Fluid_ViewHelpers_TranslateViewHelper {
+namespace MOC\MocHelpers\ViewHelpers;
+
+class TranslateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\TranslateViewHelper {
 
 	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
 	 */
 	protected $configurationManager;
 
 	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
 
@@ -34,10 +32,10 @@ class Tx_MocHelpers_ViewHelpers_TranslateViewHelper extends Tx_Fluid_ViewHelpers
 	public function render($key, $default = NULL, $htmlEscape = TRUE, array $arguments = NULL, $extensionName = '') {
 		if ($extensionName === '') {
 			$request = $this->controllerContext->getRequest();
-			$settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+			$settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 			$extensionName = isset($settings['extensionName']) ? $settings['extensionName'] : $request->getControllerExtensionName();
 		}
-		$value = Tx_Extbase_Utility_Localization::translate($key, $extensionName, $arguments);
+		$value = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, $extensionName, $arguments);
 		if ($value === NULL) {
 			$value = $default !== NULL ? $default : $this->renderChildren();
 		} elseif ($htmlEscape) {
