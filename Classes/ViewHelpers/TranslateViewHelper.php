@@ -1,9 +1,7 @@
 <?php
-/**
- * Translate a key from locallang. The files are loaded from the folder
- * "Resources/Private/Language/".
- */
-class Tx_MocHelpers_ViewHelpers_TranslateViewHelper extends Tx_Fluid_ViewHelpers_TranslateViewHelper {
+namespace MOC\MocHelpers\ViewHelpers;
+
+class TranslateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\TranslateViewHelper  {
 
 	/**
 	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
