@@ -1,38 +1,23 @@
 <?php
+namespace MOC\MocHelpers\ViewHelpers;
+
 /**
- * Typolink ViewHelper for fluid
+ * Typolink URL view helper for Fluid
  *
  * Example:
- * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
+ * 		{namespace moc=\MOC\MocHelpers\ViewHelpers}
  *
- *		  <moc:typolink parameter="{TypolinkCompatibleParameter}" />
+ *		  <moc:typolinkUrl configuration="{parameter: pageUid}" />
  *
  */
-class Tx_MocHelpers_ViewHelpers_TypolinkUrlViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class TypolinkUrlViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 *
-	 * @var tslib_cObj
+	 * @param array $configuration
+	 * @return string
 	 */
-	static private $cObj;
-
-	public function __construct() {
-		if(!$this->cObj instanceof tslib_cObj) {
-			$this->cObj = t3lib_div::makeInstance('tslib_cObj');
-		}
-
-	}
-
-
-	/**
-	 * @param string $parameter
-	 * @param string $additionalParams
-	 * @return string URI
-	 */
-	public function render($parameter,$additionalParams='') {
-		$conf['parameter'] = $parameter;
-		$conf['additionalParams'] = $additionalParams;
-		return $this->cObj->typolink_URL($conf);
+	public function render($configuration) {
+		return $GLOBALS['TSFE']->cObj->typolink_URL($configuration);
 	}
 
 }

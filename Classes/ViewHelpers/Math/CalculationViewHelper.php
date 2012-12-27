@@ -1,4 +1,5 @@
 <?php
+namespace MOC\MocHelpers\ViewHelpers\Math;
 
 /**
  *
@@ -28,8 +29,11 @@
  * @scope prototype
  * @todo refine documentation
  */
-class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class CalculationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
+	/**
+	 * @var array
+	 */
 	protected $operatorsWithPrecedenceValue = array('+' => 10, '-' => 10, '*' => 20, '/' => 20, '%' => 20);
 
 	/**
@@ -44,7 +48,7 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 		preg_match_all('([0-9.]*|[\D]?)', $expressionString, $splitArray);
 		$expressionArray = $this->buildExpressionArray($splitArray[0]);
 		$result = $this->evaluateExpressionArray($expressionArray);
-		if ($aliasToCreate != NULL) {
+		if ($aliasToCreate !== NULL) {
 			$this->templateVariableContainer->add($aliasToCreate, $result);
 			$output = $this->renderChildren();
 			$this->templateVariableContainer->remove($aliasToCreate);
@@ -54,43 +58,43 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 	}
 
 	/**
-	 *	later on responsible for presplitting the array by parenthesis to have nested calculations
+	 *	Later on responsible for presplitting the array by parenthesis to have nested calculations
+	 *
 	 *	@param array $splitArray The array with splitted formula
 	 *	@param integer $nestingLevel used for the recursion of nested parenthesis
 	 *	@return array multidimensional array with numbers, operators and subarrays (nested)
 	 */
-	function buildExpressionArray($splitArray, $nestingLevel = 0){
+	protected function buildExpressionArray($splitArray, $nestingLevel = 0) {
 		$expresionArray = array();
 
-		foreach($splitArray as $key => $splitPart){
+		foreach ($splitArray as $key => $splitPart) {
 			$splitPart = trim($splitPart);
 			if ($splitPart == '(') {
-				$nestingLevel ++;
+				$nestingLevel++;
 			} elseif ($splitPart == ')') {
-				$nestionLevel --;
-
+				$nestionLevel--;
 			} else {
 				if (strlen($splitPart)) {
 					$expressionArray[] = $splitPart;
 				}
-
 			}
 		}
 
 		return $expressionArray;
-
 	}
 
 	/**
-	 *	will try to evaluate the calculation and return a final value
-	 *	@param array $expressionArray array to be calculated
+	 *	Will try to evaluate the calculation and return a final value
+	 *
+	 * @param array $expressionArray array to be calculated
+	 * @return string
 	 */
-	function evaluateExpressionArray($expressionArray = array()){
+	protected function evaluateExpressionArray(array $expressionArray = array()) {
 		$subExpressionsEliminated = FALSE;
 		// eliminate sub expressions, this is recursive, so after first run, all sub expressions should be eliminated
-		if($subExpressionsEliminated === FALSE){
-			foreach($expressionArray as $key => $mathData){
-				if(is_array($mathData)){
+		if ($subExpressionsEliminated === FALSE) {
+			foreach ($expressionArray as $key => $mathData) {
+				if (is_array($mathData)) {
 					$expressionArray[$key] = $this->evaluateExpressionArray($mathData);
 				}
 			}
@@ -98,50 +102,48 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 		}
 		$i = 0;
 		// we loop a maximum of 99 times over the expression before Exception
-		while(count($expressionArray) > 1 && $i < 99){
+		while (count($expressionArray) > 1 && $i < 99) {
 			$prev = NULL;
-			$i ++;
-			foreach($expressionArray as $key => $mathData){
+			$i++;
+			foreach ($expressionArray as $key => $mathData) {
 				// lets see if we have an operator
-				if(array_key_exists($mathData, $this->operatorsWithPrecedenceValue)){
+				if (array_key_exists($mathData, $this->operatorsWithPrecedenceValue)) {
 					// check next
 					$next_key = $this->findNextValidKey($expressionArray, $key);
-					if(is_numeric($next_key)){
+					if (is_numeric($next_key)) {
 						$next = $expressionArray[$next_key];
 					} else{
 						$next = NULL;
 					}
 
-					if(is_numeric($prev) && is_numeric($next)){
-							switch($mathData){
-								case '-':
-									$eval = $prev - $next;
-									break;
-								case '+':
-									$eval = $prev + $next;
-									break;
-								case '*':
-									$eval = $prev * $next;
-									break;
-								case '/':
-									$eval = $prev / $next;
-									break;
-								case '%':
-									$eval = $prev % $next;
-									break;
-							}
-							unset($expressionArray[$prev_key]);
-							unset($expressionArray[$next_key]);
-							$expressionArray[$key] = $eval;
+					if (is_numeric($prev) && is_numeric($next)) {
+						switch($mathData) {
+							case '-':
+								$eval = $prev - $next;
 							break;
+							case '+':
+								$eval = $prev + $next;
+							break;
+							case '*':
+								$eval = $prev * $next;
+							break;
+							case '/':
+								$eval = $prev / $next;
+							break;
+							case '%':
+								$eval = $prev % $next;
+							break;
+						}
+						unset($expressionArray[$prev_key]);
+						unset($expressionArray[$next_key]);
+						$expressionArray[$key] = $eval;
+						break;
 					} elseif ($prev !== NULL && array_key_exists($prev, $this->operatorsWithPrecedenceValue) && is_numeric($next) && $mathData === '-') {
-
 						$expressionArray[$key] = 0 - $next;
 						unset($expressionArray[$next_key]);
 						break;
 					}
 				}
-
 
 				$prev = $expressionArray[$key];
 				$prev_key = $key;
@@ -153,25 +155,25 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 		}
 		if (count($expressionArray) == 1) {
 			return reset($expressionArray);
-		} else{
+		} else {
 			return '';
 		}
-
 	}
 
 	/**
-	 * find next valid key of (calculation) array (not easy as values get deleted)
+	 * Find next valid key of (calculation) array (not easy as values get deleted)
+	 *
 	 * @param array $array the array to find a next key
 	 * @param integer $keyFrom the key for which you want the next
-	 * @return
+	 * @return integer
 	 */
-	function findNextValidKey($array,$keyFrom){
+	protected function findNextValidKey($array, $keyFrom) {
 		$i = 0;
 		$key = NULL;
-		while($key == NULL && $i < 99){
+		while ($key == NULL && $i < 99) {
 			$i++;
-			if (isset($array[$keyFrom+$i])) {
-				$key = $keyFrom+$i;
+			if (isset($array[$keyFrom + $i])) {
+				$key = $keyFrom + $i;
 			}
 		}
 		return $key;
