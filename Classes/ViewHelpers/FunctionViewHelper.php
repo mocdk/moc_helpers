@@ -373,6 +373,14 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 					return range((int)$a, (int)$b, (int)$c);
 				}
 				return range((int)$a, (int)$b);
+			case 'in_array':
+				if(is_array($b) && (boolean)$c){
+					return in_array($a, $b, (boolean)$c);
+				}
+				if(is_array($b)){
+					return in_array($a, $b);
+				}
+				return FALSE;
 		}
 
 			// Throw new exception if the given function doesn't have a matching case
