@@ -1,9 +1,8 @@
 <?php
 /**
  * Replace ViewHelper for fluid replace everything through a regex match
- *
  */
-class Tx_MocHelpers_ViewHelpers_ReplaceViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper   {
+class Tx_MocHelpers_ViewHelpers_ReplaceViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
 	 * Replace a value
@@ -14,7 +13,6 @@ class Tx_MocHelpers_ViewHelpers_ReplaceViewHelper extends Tx_Fluid_Core_ViewHelp
 	 * @return string $value
 	 */
 	public function render($value = '', $pattern = '', $replace = '') {
-
 		return preg_replace($pattern, $replace, $value === '' ? $this->renderChildren() : $value);
 	}
 
