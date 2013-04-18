@@ -7,7 +7,7 @@ namespace MOC\MocHelpers\ViewHelpers;
  * Example:
  * 		{namespace moc=MOC\MocHelpers\ViewHelpers}
  *
- *		  <moc:typolink configuration="{parameter: pageUid, ATagParams: 'class="link"'}" />
+ *		  <moc:typolink configuration="{parameter: pageUid, ATagParams: 'class=\"link\"'}" />
  *
  */
 class TypolinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
