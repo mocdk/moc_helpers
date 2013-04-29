@@ -24,10 +24,23 @@ class ResourceViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 
 	/**
 	 * @param string $identifier
+	 * @param boolean $treatIdAsReference
 	 * @return \TYPO3\CMS\Core\Resource\FileInterface|\TYPO3\CMS\Core\Resource\Folder
 	 */
-	public function render($identifier = NULL) {
-		return $this->resourceFactory->retrieveFileOrFolderObject($identifier ?: $this->renderChildren());
+	public function render($identifier = NULL, $treatIdAsReference = FALSE) {
+		$identifier = $identifier ?: $this->renderChildren();
+		if (\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($identifier)) {
+			if ($treatIdAsReference === TRUE) {
+				$resource = $this->resourceFactory->getFileReferenceObject($identifier);
+			} else {
+				$resource = $this->resourceFactory->getFileObject($identifier);
+			}
+		} elseif (preg_match('/^(0|[1-9][0-9]*):/', $identifier)) { // combined identifier
+			$resource = $this->resourceFactory->retrieveFileOrFolderObject($identifier);
+		} else {
+			$resource = $this->resourceFactory->retrieveFileOrFolderObject(\TYPO3\CMS\Core\Utility\GeneralUtility::resolveBackPath($identifier));
+		}
+		return $resource;
 	}
 
 }
