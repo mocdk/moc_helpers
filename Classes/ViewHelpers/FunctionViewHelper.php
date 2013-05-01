@@ -15,19 +15,9 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 			// Render variable $a as the children if argument is empty
 		$a = $a === '' ? $this->renderChildren() : $a;
 
-			// Prevent empty values to return 0
-		if ($b !== '') {
-			$int_b = is_int(intval($b));
-		}
-		$int_b = is_int($int_b);
-		if ($c !== '') {
-			$int_c = is_int(intval($c));
-		}
-		$int_c = is_int($int_c);
-		if ($d !== '') {
-			$int_d = is_int(intval($d));
-		}
-		$int_d = is_int($int_d);
+		$bIsInteger = \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($b);
+		$cIsInteger = \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($c);
+		$dIsInteger = \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($d);
 
 		switch ($f) {
 			case 'ucfirst':
@@ -78,34 +68,34 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return vsprintf($a, (array)$b);
 
 			case 'wordwrap':
-				if ($int_b && (string)$c && (boolean)$d) {
+				if ($bIsInteger && (string)$c && (boolean)$d) {
 					return wordwrap((string)$a, (int)$b, (string)$c, (boolean)$d);
 				}
-				if ($int_b && (string)$c) {
+				if ($bIsInteger && (string)$c) {
 					return wordwrap((string)$a, (int)$b, (string)$c);
 				}
-				if ($int_b) {
+				if ($bIsInteger) {
 					return wordwrap((string)$a, (int)$b);
 				}
 				return wordwrap((string)$a);
 
 			case 'substr_replace':
-				if ($int_d) {
+				if ($dIsInteger) {
 					return substr_replace((string)$a, (string)$b, (int)$c, (int)$d);
 				}
 				return substr_replace((string)$a, (string)$b, (int)$c);
 
 			case 'substr_count':
-				if ($int_c && $int_d) {
+				if ($cIsInteger && $dIsInteger) {
 					return substr_count((string)$a, (string)$b, (int)$c, (int)$d);
 				}
-				if ($int_c) {
+				if ($cIsInteger) {
 					return substr_count((string)$a, (string)$b, (int)$c);
 				}
 				return substr_count((string)$a, (string)$b);
 
 			case 'substr':
-				if ($int_c) {
+				if ($cIsInteger) {
 					return substr((string)$a, (string)$b, (int)$c);
 				}
 				return substr((string)$a, (string)$b);
@@ -126,22 +116,22 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return strstr((string)$a, (string)$b);
 
 			case 'strspn':
-				if ($int_c && $int_d) {
+				if ($cIsInteger && $dIsInteger) {
 					return strspn((string)$a, (string)$b, (int)$c, (int)$d);
 				}
-				if ($int_c) {
+				if ($cIsInteger) {
 					return strspn((string)$a, (string)$b, (int)$c);
 				}
 				return strspn((string)$a, (string)$b);
 
 			case 'strrpos':
-				if ($int_c) {
+				if ($cIsInteger) {
 					return strrpos((string)$a, (string)$b, (int)$c);
 				}
 				return strrpos((string)$a, (string)$b);
 
 			case 'strripos':
-				if ($int_c) {
+				if ($cIsInteger) {
 					return strripos((string)$a, (string)$b, (int)$c);
 				}
 				return strripos((string)$a, (string)$b);
@@ -150,13 +140,13 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return strrev((string)$a);
 
 			case 'strrchr':
-				if ($int_b) {
+				if ($bIsInteger) {
 					return strrchr((string)$a, (int)$b);
 				}
 				return strrchr((string)$a, (string)$b);
 
 			case 'strpos':
-				if ($int_c) {
+				if ($cIsInteger) {
 					return strpos((string)$a, (string)$b, (int)$c);
 				}
 				return strpos((string)$a, (string)$b);
@@ -165,7 +155,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return strpbrk((string)$a, (string)$b);
 
 			case 'strncmp':
-				if ($int_c) {
+				if ($cIsInteger) {
 					return strncmp((string)$a, (string)$b, (int)$c);
 				}
 				return strncmp((string)$a, (string)$b);
@@ -186,7 +176,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return stristr((string)$a, (string)$b);
 
 			case 'stripos':
-				if ($int_c) {
+				if ($cIsInteger) {
 					return stripos((string)$a, (string)$b, (int)$c);
 				}
 				return stripos((string)$a, (string)$b);
@@ -204,10 +194,10 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return strip_tags((string)$a);
 
 			case 'strcspn':
-				if ($int_c && $int_d) {
+				if ($cIsInteger && $dIsInteger) {
 					return strcspn((string)$a, (string)$b, (int)$c, (int)$d);
 				}
-				if ($int_c) {
+				if ($cIsInteger) {
 					return strcspn((string)$a, (string)$b, (int)$c);
 				}
 				return strcspn((string)$a, (string)$b);
@@ -225,16 +215,16 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return strcasecmp((string)$a, (string)$b);
 
 			case 'str_word_count':
-				if ($int_b && (string)$c) {
+				if ($bIsInteger && (string)$c) {
 					return str_word_count((string)$a, (int)$b, (string)$c);
 				}
-				if ($int_b) {
+				if ($bIsInteger) {
 					return str_word_count((string)$a, (int)$b);
 				}
 				return str_word_count((string)$a);
 
 			case 'str_split':
-				if ($int_b) {
+				if ($bIsInteger) {
 					return str_split((string)$a, (int)$b);
 				}
 				return str_split((string)$a);
@@ -249,7 +239,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return str_repeat((string)$a, (string)$b);
 
 			case 'str_pad':
-				if ((string)$c && $int_d) {
+				if ((string)$c && $dIsInteger) {
 					return str_pad((string)$a, (string)$b, (string)$c, (int)$d);
 				}
 				if ((string)$c) {
@@ -288,10 +278,10 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return ord((string)$a);
 
 			case 'number_format':
-				if ($int_b && (string)$c && (string)$d) {
+				if ($bIsInteger && (string)$c && (string)$d) {
 					return number_format((float)$a, (int)$b, (string)$c, (string)$d);
 				}
-				if ($int_b) {
+				if ($bIsInteger) {
 					return number_format((float)$a, (int)$b);
 				}
 				return number_format((float)$a);
@@ -300,55 +290,55 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return implode((string)$b, (string)$a);
 
 			case 'htmlspecialchars':
-				if ($int_b && (string)$c && (boolean)$d) {
+				if ($bIsInteger && (string)$c && (boolean)$d) {
 					return htmlspecialchars((string)$a, (int)$b, (string)$c, (boolean)$d);
 				}
-				if ($int_b && (string)$c) {
+				if ($bIsInteger && (string)$c) {
 					return htmlspecialchars((string)$a, (int)$b, (string)$c);
 				}
-				if ($int_b) {
+				if ($bIsInteger) {
 					return htmlspecialchars((string)$a, (int)$b);
 				}
 				return htmlspecialchars((string)$a);
 
 			case 'htmlspecialchars_decode':
-				if ($int_b) {
+				if ($bIsInteger) {
 					return htmlspecialchars_decode((string)$a, (int)$b);
 				}
 				return htmlspecialchars_decode((string)$a);
 
 			case 'htmlentities':
-				if ($int_b && (string)$c && (boolean)$d) {
+				if ($bIsInteger && (string)$c && (boolean)$d) {
 					return htmlentities((string)$a, (int)$b, (string)$c, (boolean)$d);
 				}
-				if ($int_b && (string)$c) {
+				if ($bIsInteger && (string)$c) {
 					return htmlentities((string)$a, (int)$b, (string)$c);
 				}
-				if ($int_b) {
+				if ($bIsInteger) {
 					return htmlentities((string)$a, (int)$b);
 				}
 				return htmlentities((string)$a);
 
 			case 'html_entity_decode':
-				if ($int_b && (string)$c) {
+				if ($bIsInteger && (string)$c) {
 					return html_entity_decode((string)$a, (int)$b, (string)$c);
 				}
-				if ($int_b) {
+				if ($bIsInteger) {
 					return html_entity_decode((string)$a, (int)$b);
 				}
 				return html_entity_decode((string)$a);
 
 			case 'explode':
-				if ($int_c) {
+				if ($cIsInteger) {
 					return explode((string)$a, (string)$b, (int)$c);
 				}
 				return explode((string)$a, (string)$b);
 
 			case 'chunk_split':
-				if ($int_b && $int_c) {
+				if ($bIsInteger && $cIsInteger) {
 					return chunk_split((string)$a, (int)$b, (int)$c);
 				}
-				if ($int_b) {
+				if ($bIsInteger) {
 					return chunk_split((string)$a, (int)$b);
 				}
 				return chunk_split((string)$a);
@@ -369,7 +359,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return addcslashes((string)$a, (string)$b);
 
 			case 'range':
-				if ($int_c) {
+				if ($cIsInteger) {
 					return range((int)$a, (int)$b, (int)$c);
 				}
 				return range((int)$a, (int)$b);
