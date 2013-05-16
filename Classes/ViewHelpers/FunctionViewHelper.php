@@ -43,8 +43,8 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 				return strftime((string)$b, (int)$a);
 
 			case 'date':
-				$b = $b ? $b : 'd-m-Y H:i';
-				return date((int)$a, (string)$b);
+				$a = $a ? $a : 'd-m-Y H:i';
+				return date((string)$a, (int)$b);
 
 			case 'empty':
 				return empty($a);
