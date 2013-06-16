@@ -2,7 +2,6 @@
 namespace MOC\MocHelpers\ViewHelpers\Math;
 
 /**
- *
  * Backported from Calculation viewhleper in FLOW3, but aliases are only create inside the current scope!
  *
  * Basic math calculations, result can be output or stored in a new variable
@@ -27,7 +26,6 @@ namespace MOC\MocHelpers\ViewHelpers\Math;
  * @version $Id:
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @scope prototype
- * @todo refine documentation
  */
 class CalculationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
@@ -37,7 +35,6 @@ class CalculationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
 	protected $operatorsWithPrecedenceValue = array('+' => 10, '-' => 10, '*' => 20, '/' => 20, '%' => 20);
 
 	/**
-	 *
 	 * @param string $expressionString The math expression to evaluate
 	 * @param boolean $output should the result be returned?
 	 * @param string $aliasToCreate name of new alias to be set with result
@@ -58,11 +55,11 @@ class CalculationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
 	}
 
 	/**
-	 *	Later on responsible for presplitting the array by parenthesis to have nested calculations
+	 * Later on responsible for presplitting the array by parenthesis to have nested calculations
 	 *
-	 *	@param array $splitArray The array with splitted formula
-	 *	@param integer $nestingLevel used for the recursion of nested parenthesis
-	 *	@return array multidimensional array with numbers, operators and subarrays (nested)
+	 * @param array $splitArray The array with splitted formula
+	 * @param integer $nestingLevel used for the recursion of nested parenthesis
+	 * @return array multidimensional array with numbers, operators and subarrays (nested)
 	 */
 	protected function buildExpressionArray($splitArray, $nestingLevel = 0) {
 		$expresionArray = array();
@@ -84,14 +81,14 @@ class CalculationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
 	}
 
 	/**
-	 *	Will try to evaluate the calculation and return a final value
+	 * Will try to evaluate the calculation and return a final value
 	 *
 	 * @param array $expressionArray array to be calculated
 	 * @return string
 	 */
 	protected function evaluateExpressionArray(array $expressionArray = array()) {
 		$subExpressionsEliminated = FALSE;
-		// eliminate sub expressions, this is recursive, so after first run, all sub expressions should be eliminated
+			// eliminate sub expressions, this is recursive, so after first run, all sub expressions should be eliminated
 		if ($subExpressionsEliminated === FALSE) {
 			foreach ($expressionArray as $key => $mathData) {
 				if (is_array($mathData)) {
@@ -101,63 +98,64 @@ class CalculationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
 			$subExpressionsEliminated = TRUE;
 		}
 		$i = 0;
-		// we loop a maximum of 99 times over the expression before Exception
+			// we loop a maximum of 99 times over the expression before Exception
 		while (count($expressionArray) > 1 && $i < 99) {
 			$prev = NULL;
 			$i++;
 			foreach ($expressionArray as $key => $mathData) {
-				// lets see if we have an operator
+					// lets see if we have an operator
 				if (array_key_exists($mathData, $this->operatorsWithPrecedenceValue)) {
-					// check next
-					$next_key = $this->findNextValidKey($expressionArray, $key);
-					if (is_numeric($next_key)) {
-						$next = $expressionArray[$next_key];
-					} else{
+						// check next
+					$nextKey = $this->findNextValidKey($expressionArray, $key);
+					if (is_numeric($nextKey)) {
+						$next = $expressionArray[$nextKey];
+					} else {
 						$next = NULL;
 					}
 
 					if (is_numeric($prev) && is_numeric($next)) {
-						switch($mathData) {
+						switch ($mathData) {
 							case '-':
 								$eval = $prev - $next;
-							break;
+								break;
 							case '+':
 								$eval = $prev + $next;
-							break;
+								break;
 							case '*':
 								$eval = $prev * $next;
-							break;
+								break;
 							case '/':
 								$eval = $prev / $next;
-							break;
+								break;
 							case '%':
 								$eval = $prev % $next;
-							break;
+								break;
+							default:
 						}
-						unset($expressionArray[$prev_key]);
-						unset($expressionArray[$next_key]);
+						if (isset($prevKey)) {
+							unset($expressionArray[$prevKey]);
+						}
+						unset($expressionArray[$nextKey]);
 						$expressionArray[$key] = $eval;
 						break;
 					} elseif ($prev !== NULL && array_key_exists($prev, $this->operatorsWithPrecedenceValue) && is_numeric($next) && $mathData === '-') {
 						$expressionArray[$key] = 0 - $next;
-						unset($expressionArray[$next_key]);
+						unset($expressionArray[$nextKey]);
+// @codingStandardsIgnoreStart
 						break;
+// @codingStandardsIgnoreEnd
 					}
 				}
 
 				$prev = $expressionArray[$key];
-				$prev_key = $key;
+				$prevKey = $key;
 			}
 
 		}
-		if ($i >= 99) {
-			// TODO: exception
-		}
 		if (count($expressionArray) == 1) {
 			return reset($expressionArray);
-		} else {
-			return '';
 		}
+		return '';
 	}
 
 	/**

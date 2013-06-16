@@ -1,6 +1,9 @@
 <?php
 namespace MOC\MocHelpers\ViewHelpers;
 
+/**
+ * Class FunctionViewHelper
+ */
 class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
@@ -10,6 +13,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 	 * @param mixed $c Optional variable
 	 * @param mixed $d Optional variable
 	 * @return mixed
+	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
 	 */
 	public function render($f, $a = '', $b = '', $c = '', $d = '') {
 			// Render variable $a as the children if argument is empty
@@ -371,10 +375,13 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 					return in_array($a, $b);
 				}
 				return FALSE;
+
+			default:
+				// Throw new exception if the given function doesn't have a matching case
+			throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('Function not allowed in function view helper: "' . htmlspecialchars($f) . '".', 1300267763);
 		}
 
-			// Throw new exception if the given function doesn't have a matching case
-		throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('Function not allowed in function view helper: "' . htmlspecialchars($f) . '".', 1300267763);
+		return FALSE;
 	}
 
 }

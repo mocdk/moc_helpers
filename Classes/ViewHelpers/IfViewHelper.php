@@ -1,6 +1,9 @@
 <?php
 namespace MOC\MocHelpers\ViewHelpers;
 
+/**
+ * Class IfViewHelper
+ */
 class IfViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 	/**
@@ -16,39 +19,39 @@ class IfViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionVie
 			case '>=':
 			case 'greaterThanOrEqualTo':
 				$condition = ($left >= $right);
-			break;
+				break;
 
 			case '<=':
 			case 'lessThanOrEqualTo':
 				$condition = ($left <= $right);
-			break;
+				break;
 
 			case '>':
 			case 'greaterThan':
 				$condition = ($left > $right);
-			break;
+				break;
 
 			case '<':
 			case 'lessThan':
 				$condition = ($left < $right);
-			break;
+				break;
 
 			case '!==':
 			case 'notIdentical':
 				$condition = ($left !== $right);
-			break;
+				break;
 
 			case '!=':
 			case '<>':
 			case 'not':
 			case 'notEqual':
 				$condition = ($left != $right);
-			break;
+				break;
 
 			case '===':
 			case 'identical':
 				$condition = ($left === $right);
-			break;
+				break;
 
 			case 'equal':
 			case '==':

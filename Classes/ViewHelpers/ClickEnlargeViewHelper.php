@@ -5,10 +5,8 @@ namespace MOC\MocHelpers\ViewHelpers;
  * Click enlarge view helper for Fluid
  *
  * Example:
- * 		{namespace moc=MOC\MocHelpers\ViewHelpers}
- *
- *		  <moc:clickEnlarge path="path/to/image/file.ext" />
- *
+ * {namespace moc=MOC\MocHelpers\ViewHelpers}
+ * <moc:clickEnlarge path="path/to/image/file.ext" />
  */
 class ClickEnlargeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 

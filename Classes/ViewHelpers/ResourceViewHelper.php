@@ -35,7 +35,7 @@ class ResourceViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 			} else {
 				$resource = $this->resourceFactory->getFileObject($identifier);
 			}
-		} elseif (preg_match('/^(0|[1-9][0-9]*):/', $identifier)) { // combined identifier
+		} elseif (preg_match('/^(0|[1-9][0-9]*):/', $identifier)) {
 			$resource = $this->resourceFactory->retrieveFileOrFolderObject($identifier);
 		} else {
 			$resource = $this->resourceFactory->retrieveFileOrFolderObject(\TYPO3\CMS\Core\Utility\GeneralUtility::resolveBackPath($identifier));

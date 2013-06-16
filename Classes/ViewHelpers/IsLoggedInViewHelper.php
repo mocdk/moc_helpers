@@ -1,6 +1,9 @@
 <?php
 namespace MOC\MocHelpers\ViewHelpers;
 
+/**
+ * Class IsLoggedInViewHelper
+ */
 class IsLoggedInViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 	/**

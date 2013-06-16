@@ -1,6 +1,9 @@
 <?php
 namespace MOC\MocHelpers\ViewHelpers\File;
 
+/**
+ * Class ExistsViewHelper
+ */
 class ExistsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**

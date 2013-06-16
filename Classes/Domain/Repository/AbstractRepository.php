@@ -20,7 +20,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
 	 */
-	public function createQuery(){
+	public function createQuery() {
 		$query = parent::createQuery();
 		$query->getQuerySettings()->setRespectStoragePage($this->respectStoragePage);
 		return $query;

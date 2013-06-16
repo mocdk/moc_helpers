@@ -5,10 +5,8 @@ namespace MOC\MocHelpers\ViewHelpers;
  * Typolink URL view helper for Fluid
  *
  * Example:
- * 		{namespace moc=MOC\MocHelpers\ViewHelpers}
- *
- *		  <moc:typolinkUrl configuration="{parameter: pageUid}" />
- *
+ * {namespace moc=MOC\MocHelpers\ViewHelpers}
+ * <moc:typolinkUrl configuration="{parameter: pageUid}" />
  */
 class TypolinkUrlViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
