@@ -1,6 +1,9 @@
 <?php
 namespace MOC\MocHelpers\ViewHelpers;
 
+/**
+ * Class PaginationViewHelper
+ */
 class PaginationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
@@ -10,7 +13,7 @@ class PaginationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
 	 * @param integer $numberOfPagesToShow
 	 * @param string $as
 	 * @param integer $removeForEllipsis
-	 * @return void
+	 * @return string
 	 */
 	public function render($page, $total, $resultsPerPage = 10, $numberOfPagesToShow = 10, $as = 'pagination', $removeForEllipsis = 2) {
 			// Calculate numberOfPages based on the result count and resultsPerPage

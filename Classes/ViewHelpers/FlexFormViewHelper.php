@@ -1,6 +1,9 @@
 <?php
 namespace MOC\MocHelpers\ViewHelpers;
 
+/**
+ * Class FlexFormViewHelper
+ */
 class FlexFormViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
