@@ -9,7 +9,7 @@ namespace MOC\MocHelpers\Domain\Repository;
 abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
-	 * Toggle for the createQuery setRespectStoragePage option
+	 * Toggle for the query settings setRespectStoragePage option
 	 *
 	 * @var boolean
 	 */
