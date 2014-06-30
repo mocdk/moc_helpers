@@ -8,7 +8,7 @@ namespace MOC\MocHelpers\ViewHelpers\Form;
  * {namespace moc=MOC\MocHelpers\ViewHelpers}
  * <moc:form.select emptyOption="" options="{options}" value="{option}" name="option" optionLabelField="name" optionValueField="uid" />
  */
-class SelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Form\SelectViewHelper {
+class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
 
 	/**
 	 * @return void
