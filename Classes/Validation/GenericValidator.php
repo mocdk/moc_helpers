@@ -159,30 +159,30 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 		$this->defaultTCATable = $table;
 	}
 
-	public function getTCAValidations($input, $table = null) {
+	public function getTCAValidations($input, $table = NULL) {
 		global $TCA;
 
-		if(is_array($input)) {
+		if (is_array($input)) {
 			$return = array();
 
 			$input = MOC_Array::normalize($input);
 
-			foreach($input as $column => $value) {
-				$return[$column] = $this->getTCAValidations($column, $table);
-				if(is_array($value)) {
-					$return[$column] = MOC_Array::merge($value, $return[$column]);
+			foreach ($input as $column => $value) {
+				$return[t3lib_div::underscoredToLowerCamelCase($column)] = $this->getTCAValidations($column, $table);
+				if (is_array($value)) {
+					$return[t3lib_div::underscoredToLowerCamelCase($column)] = MOC_Array::merge($value, $return[t3lib_div::underscoredToLowerCamelCase($column)]);
 				}
 			}
 			return $return;
 		}
 
-		if(stristr('.', $input) !== FALSE) {
+		if (stristr('.', $input) !== FALSE) {
 			list($table, $input) = explode('.', $input);
 		}
 
 		$table = is_null($table) ? $this->defaultTCATable : $table;
 
-		if(empty($table)) {
+		if (empty($table)) {
 			throw new MOC_Exception('Table is not defined.');
 		}
 
