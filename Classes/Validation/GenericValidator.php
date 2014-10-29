@@ -167,10 +167,10 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 
 			$input = MOC_Array::normalize($input);
 
-			foreach($input as $column => $value) {
-				$return[$column] = $this->getTCAValidations($column, $table);
-				if(is_array($value)) {
-					$return[$column] = MOC_Array::merge($value, $return[$column]);
+			foreach ($input as $column => $value) {
+				$return[t3lib_div::underscoredToLowerCamelCase($column)] = $this->getTCAValidations($column, $table);
+				if (is_array($value)) {
+					$return[t3lib_div::underscoredToLowerCamelCase($column)] = MOC_Array::merge($value, $return[t3lib_div::underscoredToLowerCamelCase($column)]);
 				}
 			}
 			return $return;
