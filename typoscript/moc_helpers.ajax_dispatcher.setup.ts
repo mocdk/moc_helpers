@@ -6,5 +6,5 @@ dispatcher.config.additionalHeaders = Content-Type: text/xml
 dispatcher.typeNum = 500
 dispatcher.1 = USER_INT
 dispatcher.1.includeLibs = EXT:moc_helpers/Classes/AjaxDispatcher.php
-dispatcher.1.userFunc = tx_MocHelpers_AjaxDispatcher->Dispatch
+dispatcher.1.userFunc = Moc\MocHelpers\AjaxDispatcher->Dispatch
 

@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * ClickEnlarge ViewHelper for fluid
  *
@@ -8,17 +9,17 @@
  *		  <moc:clickEnlarge path="path/to/image/file.ext" />
  *
  */
-class Tx_MocHelpers_ViewHelpers_ClickEnlargeViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class ClickEnlargeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 *
-	 * @var tslib_cObj
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	static private $cObj;
 
 	public function __construct() {
-		if(!$this->cObj instanceof tslib_cObj) {
-			$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		if(!$this->cObj instanceof \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer) {
+			$this->cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
 		}
 
 	}
@@ -34,18 +35,18 @@ class Tx_MocHelpers_ViewHelpers_ClickEnlargeViewHelper extends Tx_Fluid_Core_Vie
 	 * @return string content wrapped in link as clickenlarge
 	 */
 	public function render($path, $width='', $height='', $params='', $alt='', $maxWidth='', $maxHeight='') {
-		
+
 		$split = explode('/', $path);
-		
+
 		$file_name = $split[count($split) - 1];
 		$file_path = str_replace($file_name, '', $path);
-				
+
 		$dam = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid, tx_smkcopyright_smkcopyright, caption','tx_dam','file_name = "'.$file_name.'" AND file_path = "'.$file_path.'" AND NOT deleted');
-		
+
 		$damid = $dam[0]['uid'];
 		$damcopyright = $dam[0]['tx_smkcopyright_smkcopyright'];
 		$damcaption = $dam[0]['caption'];
-	
+
 		$conf['imageLinkWrap'] = '1';
 		$conf['imageLinkWrap.']['bodyTag'] = '<body style="margin:0; background:#fff;">';
 		$conf['imageLinkWrap.']['wrap'] = '<a href="javascript:close();"> | </a>';
@@ -75,11 +76,9 @@ class Tx_MocHelpers_ViewHelpers_ClickEnlargeViewHelper extends Tx_Fluid_Core_Vie
 
 		$image = $this->cObj->cObjGetSingle('IMAGE', $conf);
 		$caption = $this->cObj->cObjGetSingle('USER', $conf2);
-		
+
 		$content = '<div><div>'.$image.'</div><div class="csc-textpic-caption" style="display:none">'.$caption.'</div></div>';
-		
+
 		return $content;
 	}
 }
-
-?>

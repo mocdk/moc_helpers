@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_ViewHelpers_ImagesourceViewHelper extends Tx_Fluid_ViewHelpers_ImageViewHelper {
+namespace Moc\MocHelpers\ViewHelpers;
+class ImagesourceViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper {
 
 	/**
 	 * Initialize arguments.
@@ -46,12 +47,12 @@ class Tx_MocHelpers_ViewHelpers_ImagesourceViewHelper extends Tx_Fluid_ViewHelpe
 		$imageInfo = $this->contentObject->getImgResource($src, $setup);
 		$GLOBALS['TSFE']->lastImageInfo = $imageInfo;
 		if (!is_array($imageInfo)) {
-				throw new Tx_Fluid_Core_ViewHelper_Exception('Could not get image resource for "' . htmlspecialchars($src) . '".' , 1253191060);
+				throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('Could not get image resource for "' . htmlspecialchars($src) . '".' , 1253191060);
 		}
-		$imageInfo[3] = t3lib_div::png_to_gif_by_imagemagick($imageInfo[3]);
+		$imageInfo[3] = \TYPO3\CMS\Core\Utility\GeneralUtility::png_to_gif_by_imagemagick($imageInfo[3]);
 		$GLOBALS['TSFE']->imagesOnPage[] = $imageInfo[3];
 
-		$imageSource = $GLOBALS['TSFE']->absRefPrefix . t3lib_div::rawUrlEncodeFP($imageInfo[3]);
+		$imageSource = $GLOBALS['TSFE']->absRefPrefix . \TYPO3\CMS\Core\Utility\GeneralUtility::rawUrlEncodeFP($imageInfo[3]);
 
 		return $imageSource;
 	}

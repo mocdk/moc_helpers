@@ -1,10 +1,11 @@
 <?php
-class Tx_MocHelpers_Validation_ObjectValidator extends Tx_MocHelpers_Validation_Abstract {
+namespace Moc\MocHelpers\Validation;
+class ObjectValidator extends \Moc\MocHelpers\Validation\ValidationAbstract {
 
 	/**
 	 * Contains a list of objects that should all validate for this step to be valid
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 */
 	protected $validatingObjects;
 
@@ -15,7 +16,7 @@ class Tx_MocHelpers_Validation_ObjectValidator extends Tx_MocHelpers_Validation_
 	 */
 	public function initializeObject() {
 		parent::initializeObject();
-		$this->validatingObjects = $this->objectManager->create('Tx_Extbase_Persistence_ObjectStorage');
+		$this->validatingObjects = $this->objectManager->get('\TYPO3\CMS\Extbase\Persistence\ObjectStorage');
 	}
 
 	/**

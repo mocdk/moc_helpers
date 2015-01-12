@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation_Abstract {
+namespace Moc\MocHelpers\Validation;
+class GenericValidator extends \Moc\MocHelpers\Validation\ValidationAbstract {
 
 	/**
 	 * @var array
@@ -135,7 +136,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 			$argument = array_shift($argumentPath);
 
 			if(!array_key_exists($argument, $this->errors)) {
-				$this->errors[$argument] = $this->objectManager->create('Tx_Extbase_MVC_Controller_ArgumentError', $argument);
+				$this->errors[$argument] = $this->objectManager->get('Tx_Extbase_MVC_Controller_ArgumentError', $argument);
 			}
 
 			$error = $this->errors[$argument];
@@ -145,7 +146,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 					if(is_numeric($property)) {
 						throw new MOC_Exception(sprintf('Numeric keys are not allowed as validation variables (%s) - array_merge renumbers numeric values.', $property));
 					}
-					$error->addErrors(array($property => $this->objectManager->create('Tx_Extbase_Validation_PropertyError', $property)));
+					$error->addErrors(array($property => $this->objectManager->get('Tx_Extbase_Validation_PropertyError', $property)));
 				}
 				$errors = $error->getErrors();
 				$error = $errors[$property];
@@ -190,7 +191,7 @@ class Tx_MocHelpers_Validation_GenericValidator extends Tx_MocHelpers_Validation
 			if (TYPO3_MODE === 'FE') {
 				$GLOBALS['TSFE']->includeTCA();
 			}
-			t3lib_div::loadTCA($table);
+			// \TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA($table);
 			if(!isset($TCA[$table]['columns'][$input])) {
 				throw new MOC_Exception(sprintf('%s.%s could not be found in the TCA.', $table, $input));
 			}

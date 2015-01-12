@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * String format ViewHelper for fluid
  *
@@ -8,7 +9,7 @@
  *		  <moc:strftime format="%d %b %Y %H:%M" timestamp="{element}" />
  *
  */
-class Tx_MocHelpers_ViewHelpers_StrftimeViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class StrftimeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Converts a unix timestamp into a viewable date using date

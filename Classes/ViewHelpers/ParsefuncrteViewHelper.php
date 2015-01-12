@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * ParseFuncRTE ViewHelper for fluid Runs everything to parseFunc_RTE
  *
@@ -10,11 +11,11 @@
  *		  <moc:parsefuncrte>{something}</moc:parsefuncrte>
  *
  */
-class Tx_MocHelpers_ViewHelpers_ParsefuncrteViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper  {
+class ParsefuncrteViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper  {
 
 	/**
 	 *
-	 * @var tslib_cObj
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	static private $cObj;
 
@@ -27,9 +28,9 @@ class Tx_MocHelpers_ViewHelpers_ParsefuncrteViewHelper extends Tx_Fluid_ViewHelp
 		/**
 		* put your comment there...
 		*
-		* @var tslib_cObj
+		* @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 		*/
-		$cObj = t3lib_div::makeInstance('tslib_cObj');
+		$cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
 		$conf = array(
 			'value'=>$this->renderChildren(),
 			'parseFunc'=>'< lib.parseFunc_RTE'

@@ -1,20 +1,20 @@
 <?php
-
-class tx_MocHelpers_AjaxDispatcher {
+namespace Moc\MocHelpers;
+class AjaxDispatcher {
 
 	/**
-	 * 
+	 *
 	 * Dispatch ajax call to extbase controller, should be called as USER_INT from TypoScript
 	 * @see typoscript/moc_helpers.ajax_dispatcher.setup.ts
 	 */
 	public function Dispatch() {
 		if (!defined ('PATH_typo3conf')) die ('Could not access this script directly!');
 
-		$extensionName = t3lib_div::_GET('extensionName');
+		$extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('extensionName');
 
-		$pluginName = t3lib_div::_GET('pluginName');
+		$pluginName = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('pluginName');
 		$plugin = strtolower($extensionName).'_'.strtolower($pluginName).'.';
-		$tsparserObj = t3lib_div::makeInstance('t3lib_TSparser');
+		$tsparserObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
 		// Get Typoscript
 		$ts = $GLOBALS['TYPO3_CONF_VARS']['FE']['defaultTypoScript_setup.'][43];
 		// Parse  Typoscript
@@ -34,7 +34,7 @@ class tx_MocHelpers_AjaxDispatcher {
 	}
 
 	/**
-	 * 
+	 *
 	 * Generate link to extbase ajax script thorugh dispatcher
 	 * @param string $extension extension name extbase-style ie. MocHelpers
 	 * @param string $plugin plugin name ie. pi1
@@ -43,7 +43,7 @@ class tx_MocHelpers_AjaxDispatcher {
 	 */
 	public static function linkToAjaxBackend($extension,$plugin,$controller,$action) {
 		$GETParamScopePrefix = 'tx_' . strtolower($extension) . '_' . strtolower($plugin);
-		
+
 		$params = array(
 			'type' => 500,
 			'extensionName' => $extension,
@@ -53,10 +53,8 @@ class tx_MocHelpers_AjaxDispatcher {
 			 	'action' => $action
 			 )
 		);
-		
-		return t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT') . '?' . http_build_query($params);
+
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_SCRIPT') . '?' . http_build_query($params);
 	}
 
 }
-
-?>

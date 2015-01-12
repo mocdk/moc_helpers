@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Wordwrap ViewHelper for fluid
  *
@@ -8,7 +9,7 @@
  *		  <moc:wordwrap>{element}<moc:wordwrap>
  *
  */
-class Tx_MocHelpers_ViewHelpers_WordwrapViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class WordwrapViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Converts a unix timestamp into a viewable date using date

@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Javascript ViewHelper for fluid
  * Prevents fluid from parsing braces in inline javascript as inline view helpers
@@ -16,23 +17,23 @@
  *		var obj = {'foobar':'TheParsedValue'}
  *
  */
-class Tx_MocHelpers_ViewHelpers_JsViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class JsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Renders a javascript object
 	 *
-	 * @param object $object 
+	 * @param object $object
 	 * @param array $members
 	 * @return string Rendered string
 	 * @author Mads Brunn <mads@brunn.dk>
 	 * @api
 	 */
 	public function render() {
-		
+
 		$js = $this->renderChildren();
-		
+
 		$js = str_replace(array('\{','\}'),array('{','}'),$js);
-		
+
 		return $js;
 	}
 

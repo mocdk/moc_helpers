@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers\Paging;
 /**
  * Pagination viewhelper for fluid templates. Returns the lowerbound for the navigation.
  *
@@ -8,7 +9,7 @@
  * {namespace moc=Tx_MocHelpers_ViewHelpers}
  * Viser <moc:paging.lowerBound  currentPage="{resultData.currentPage}" resultsPerPage="10" />-<moc:paging.upperBound totalResults="{resultData.totalCount}" currentPage="{resultData.currentPage}" resultsPerPage="10"/> ud af {resultData.totalCount} resultater
  */
-class Tx_MocHelpers_ViewHelpers_Paging_LowerBoundViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class LowerBoundViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @param integer $totalResults

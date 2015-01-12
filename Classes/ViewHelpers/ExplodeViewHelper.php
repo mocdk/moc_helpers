@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Explode ViewHelper for fluid
  *
@@ -8,11 +9,11 @@
  * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
  *
  *		  <moc:explode text="{text}" as="myvar">
- *				
+ *
  * 		  <moc:explode>
  *
  */
-class Tx_MocHelpers_ViewHelpers_ExplodeViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class ExplodeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Converts a string into an array broken by newline (or other configurable token)
@@ -50,5 +51,3 @@ class Tx_MocHelpers_ViewHelpers_ExplodeViewHelper extends Tx_Fluid_Core_ViewHelp
 	}
 
 }
-
-?>

@@ -1,6 +1,6 @@
 <?php
-
-class Tx_MocHelpers_ViewHelpers_Uri_ImageViewHelper extends Tx_Fluid_ViewHelpers_Uri_ImageViewHelper {
+namespace Moc\MocHelpers\ViewHelpers\Uri;
+class ImageViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Uri\ImageViewHelper {
 
 	/**
 	 * Resizes the image (if required) and returns its path. If the image was not resized, the path will be equal to $src

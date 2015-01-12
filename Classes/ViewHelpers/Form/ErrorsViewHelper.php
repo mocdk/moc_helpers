@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_ViewHelpers_Form_ErrorsViewHelper extends Tx_Fluid_ViewHelpers_Form_ErrorsViewHelper {
+namespace Moc\MocHelpers\ViewHelpers\Form;
+class ErrorsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\ErrorsViewHelper {
 	/**
 	 * Iterates through selected errors of the request.
 	 *

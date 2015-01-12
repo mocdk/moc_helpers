@@ -1,14 +1,15 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * For ViewHelper for fluid
- * 
+ *
  * Example:
- * 		{namespace moc=Tx_MocHelpers_ViewHelpers} 
- *			
+ * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
+ *
  *		  <moc:date timestamp="{element}" format="Y-m-d H:i:s" />
- * 
+ *
  */
-class Tx_MocHelpers_ViewHelpers_DateViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_MocHelpers_ViewHelpers_DateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Converts a unix timestamp into a viewable date using date

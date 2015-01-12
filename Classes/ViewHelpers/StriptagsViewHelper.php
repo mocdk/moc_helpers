@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Striptags ViewHelper for fluid Runs everything to parseFunc_RTE
  *
@@ -10,14 +11,14 @@
  *		  <moc:striptags>{something}</moc:striptags>
  *
  */
-class Tx_MocHelpers_ViewHelpers_StriptagsViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper  {
+class StriptagsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper  {
 
 	/**
 	 * @param string $allowableTags	Comma list of tags allowed
 	 * @param boolean $decode Whether or not to html_entity_decode
 	 * @return String content parsed for links
 	 */
-	
+
 	public function render($allowableTags = '', $decode = false) {
 		if($decode) {
 			return strip_tags(html_entity_decode($this->renderChildren()), $allowableTags);

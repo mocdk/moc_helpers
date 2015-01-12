@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Linespli ViewHelper for fluid
  *
@@ -12,7 +13,7 @@
  *					</moc:linesplit>
  *
  */
-class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class LinesplitViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Converts a string into an array of lines with max $width characters in each lines, and only splitting on words.
@@ -30,9 +31,9 @@ class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHe
 	 */
 	public function render($text, $as, $width = 70, $cut = false, $maxlines = 0, $ellipsis = false) {
 		$maxlines = 4;
-		
-		$words = array();		
-		
+
+		$words = array();
+
 
 		foreach(preg_split('%[\r\n]+%', $text) as $line) {
 			foreach(explode(' ', $line) as $word) {
@@ -44,21 +45,21 @@ class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHe
 				}
 			}
 		}
-		
+
 		$stripped_words = wordwrap(strip_tags($text), $width, '********', $cut);
 		$count = 0;
 		$word_count = 0;
-		
+
 		$splitted_words = explode('********', $stripped_words);
-		
+
 		foreach($splitted_words as $key => $value) {
 			if(empty($value)) {
 				unset($splitted_words[$key]);
 			}
 		}
-		
+
 		ksort($splitted_words);
-	
+
 		foreach($splitted_words as $keyValue => $singleElement) {
 			$element_words = array();
 			foreach(preg_split('%[\r\n]+%', $singleElement) as $line) {
@@ -72,7 +73,7 @@ class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHe
 			}
 
 			unset($string);
-			
+
 			for($i = 1; $i <= $line_count; $i++) {
 				if($i > 1) {
 					$string .= ' ' . $words[$word_count];
@@ -85,13 +86,13 @@ class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHe
 			if($maxlines && $count == $maxlines) {
 				break;
 			}
-			
+
 			if($ellipsis && ((count($splitted_words) - 1) > $maxlines) && ($count+1 == $maxlines)) {
 				$string = $string . '...';
 			}
 
 			$check = trim($string);
-			
+
 			if(!empty($check)) {
 				$this->templateVariableContainer->add($as, $string);
 				$output .= $this->renderChildren();
@@ -99,7 +100,7 @@ class Tx_MocHelpers_ViewHelpers_LinesplitViewHelper extends Tx_Fluid_Core_ViewHe
 				$count++;
 			}
 		}
-		
+
 		return $output;
 	}
 

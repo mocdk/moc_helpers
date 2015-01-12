@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_ViewHelpers_FunctionViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper  {
+namespace Moc\MocHelpers\ViewHelpers;
+class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper  {
 
 	/**
 	 * @param string $f Function
@@ -362,7 +363,7 @@ class Tx_MocHelpers_ViewHelpers_FunctionViewHelper extends Tx_Fluid_Core_ViewHel
 		}
 
 		// Throw new exception if the given function doesn't have a matching case
-		throw new Tx_Fluid_Core_ViewHelper_Exception('Function not allowed in function viewhelper: "' . htmlspecialchars($f) . '".', 1300267763);
+		throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('Function not allowed in function viewhelper: "' . htmlspecialchars($f) . '".', 1300267763);
 	}
 
 }

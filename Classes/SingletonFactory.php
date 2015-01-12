@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_SingletonFactory {
+namespace Moc\MocHelpers;
+class SingletonFactory {
 	protected static $instances = array();
 
 	protected function __construct() {
@@ -9,7 +10,7 @@ class Tx_MocHelpers_SingletonFactory {
 	public static function get($class) {
 		$classKey = strtolower($class);
 		if (!array_key_exists($classKey, self::$instances)) {
-			self::$instances[$classKey] = t3lib_div::makeInstance($class);
+			self::$instances[$classKey] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($class);
 		}
 
 		return self::$instances[$classKey];

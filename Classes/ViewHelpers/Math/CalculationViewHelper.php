@@ -1,5 +1,5 @@
 <?php
-
+namespace Moc\MocHelpers\ViewHelpers\Math;
 /**
  *
  * Backported from Calculation viewhleper in FLOW3, but aliases are only create inside the current scope!
@@ -28,7 +28,7 @@
  * @scope prototype
  * @todo refine documentation
  */
-class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class CalculationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	protected $operatorsWithPrecedenceValue = array('+' => 10, '-' => 10, '*' => 20, '/' => 20, '%' => 20);
 
@@ -61,7 +61,7 @@ class Tx_MocHelpers_ViewHelpers_Math_CalculationViewHelper extends Tx_Fluid_Core
 	 */
 	function buildExpressionArray($splitArray, $nestingLevel = 0){
 		$expresionArray = array();
-
+		$nestionLevel = 0;
 		foreach($splitArray as $key => $splitPart){
 			$splitPart = trim($splitPart);
 			if ($splitPart == '(') {

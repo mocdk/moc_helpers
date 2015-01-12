@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_ViewHelpers_MetaViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+namespace Moc\MocHelpers\ViewHelpers;
+class MetaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @param string $tag

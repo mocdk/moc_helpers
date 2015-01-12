@@ -1,17 +1,18 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * For ViewHelper for fluid
- * 
+ *
  * Example:
- * 		{namespace moc=Tx_MocHelpers_ViewHelpers} 
- *			
+ * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
+ *
  *		  <moc:for each="{parameter}" as="element"></moc:for>
- * 
+ *
  */
-class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class ForViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * Iterates through elements of $each and renders child nodes with additional split in between var (not appended in end of array) 
+	 * Iterates through elements of $each and renders child nodes with additional split in between var (not appended in end of array)
 	 *
 	 * @param mixed $each The array or SplObjectStorage to iterated over
 	 * @param string $as The name of the iteration variable
@@ -32,8 +33,8 @@ class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_A
 			return '';
 		}
 		if(is_object($each)) {
-			if(!$each instanceof Traversable) {
-				throw new Tx_Fluid_Core_ViewHelper_Exception('ForViewHelper only supports arrays and objects implementing Traversable interface' , 1248728393);
+			if(!$each instanceof \Traversable) {
+				throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('ForViewHelper only supports arrays and objects implementing Traversable interface' , 1248728393);
 			}
 			$each = $this->convertToArray($each);
 		}
@@ -41,8 +42,9 @@ class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_A
 		if($reverse === TRUE) {
 			$each = array_reverse($each);
 		}
-		
+
 		$output = '';
+		$i=0;
 		foreach($each as $keyValue => $singleElement) {
 			$this->templateVariableContainer->add($as, $singleElement);
 			if($key !== '') {
@@ -70,7 +72,7 @@ class Tx_MocHelpers_ViewHelpers_ForViewHelper extends Tx_Fluid_Core_ViewHelper_A
 	 * @return array The resulting array
 	 * @author Bastian Waidelich <bastian@typo3.org>
 	 */
-	protected function convertToArray(Traversable $object) {
+	protected function convertToArray(\Traversable $object) {
 		$array = array();
 		foreach($object as $keyValue => $singleElement) {
 			$array[$keyValue] = $singleElement;

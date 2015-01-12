@@ -1,5 +1,6 @@
 <?php
-abstract class Tx_MocHelpers_Controller_TaskController extends tx_scheduler_Task {
+namespace Moc\MocHelpers\Controller;
+abstract class TaskController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
 	 * Tx_MocHelpers_Extbase_Dispatcher
@@ -10,16 +11,16 @@ abstract class Tx_MocHelpers_Controller_TaskController extends tx_scheduler_Task
 	 * @return array or NULL
 	 */
 	abstract protected function getConfiguration();
-	
+
 	public function setScheduler() {
 		parent::setScheduler();
-		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
-		$configurationManager = $this->objectManager->get('Tx_Extbase_Configuration_ConfigurationManager');
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
+		$configurationManager = $this->objectManager->get('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager');
 		$configurationManager->injectObjectManager($this->objectManager);
 		$configurationManager->setConfiguration($this->getConfiguration());
 		$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
 
-		$this->dispatcher = $this->objectManager->create('Tx_Extbase_Dispatcher');
+		$this->dispatcher = $this->objectManager->get('Tx_Extbase_Dispatcher');
 		$this->dispatcher->injectConfigurationManager($configurationManager);
 		$this->dispatcher->injectPersistenceManager($persistenceManager);
 	}

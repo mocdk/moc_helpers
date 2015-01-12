@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Speciel select viewhelper. Adds the emptyOption value to the options
  *
@@ -8,7 +9,7 @@
  *		  <moc:select emptyOption="Storkreds" options="{grandconstituencies}" value="{grandconstituency}" name="grandconstituency" optionLabelField="name" optionValueField="uid"/>
  *
  */
-class Tx_MocHelpers_ViewHelpers_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form_SelectViewHelper {
+class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
 	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerArgument('emptyOption', 'string', 'If specified, will add an empty option',false);

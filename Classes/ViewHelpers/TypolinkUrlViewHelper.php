@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Typolink ViewHelper for fluid
  *
@@ -8,17 +9,17 @@
  *		  <moc:typolink parameter="{TypolinkCompatibleParameter}" />
  *
  */
-class Tx_MocHelpers_ViewHelpers_TypolinkUrlViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class TypolinkUrlViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 *
-	 * @var tslib_cObj
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	static private $cObj;
 
 	public function __construct() {
-		if(!$this->cObj instanceof tslib_cObj) {
-			$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		if(!$this->cObj instanceof \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer) {
+			$this->cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
 		}
 
 	}

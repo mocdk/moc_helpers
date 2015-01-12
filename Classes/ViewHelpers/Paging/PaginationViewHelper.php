@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_ViewHelpers_Paging_PaginationViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+namespace Moc\MocHelpers\ViewHelpers\Paging;
+class PaginationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @param integer $page
@@ -47,7 +48,7 @@ class Tx_MocHelpers_ViewHelpers_Paging_PaginationViewHelper extends Tx_Fluid_Cor
 			}
 			$nextEllipsis = TRUE;
 		}
-		
+
 		// Previous page
 		$prevPage = ($page > 1) ? ($page - 1) : NULL;
 

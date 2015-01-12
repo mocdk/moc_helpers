@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persistence_Repository{
+namespace Moc\MocHelpers\Domain\Repository;
+class MocRepository extends \TYPO3\CMS\Extbase\Persistence\Repository{
 
 	/**
 	 * Toggle for the createQuery setRespectStoragePage option
@@ -11,14 +12,14 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	/**
 	 * Override the RespectStoragePage setting
 	 *
-	 * @return Tx_Extbase_Persistence_QueryInterface
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
 	 */
 	public function createQuery(){
 		$query = parent::createQuery();
 		$query->getQuerySettings()->setRespectStoragePage($this->respectStoragePage);
 		return $query;
 	}
-	
+
 	/**
 	 * Find all objects with a given lidt of uids
 	 *
@@ -70,7 +71,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 *
 	 * @param string $field
 	 * @param mixed $value
-	 * @return Tx_Extbase_DomainObject_AbstractEntity|NULL
+	 * @return \TYPO3\CMS\Extbase\DomainObject\AbstractEntity|NULL
 	 */
 	public function findOneBy($field, $value) {
 		$query = $this->createQuery();
@@ -88,7 +89,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 *
 	 * @param string $field
 	 * @param mixed $value
-	 * @return Tx_Extbase_DomainObject_AbstractEntity
+	 * @return \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	public function findOneOrInitializeBy($field, $value) {
 		$object = $this->findOneBy($field, $value);
@@ -102,12 +103,12 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	/**
 	 * Saves an object and persist it at once
 	 *
-	 * @param Tx_Extbase_DomainObject_AbstractEntity $object
+	 * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity $object
 	 */
 	public function save($object) {
 		// Only allow to save valid objects, if the object supports it
-		if (($object instanceof Tx_MocHelpers_Domain_Model_Abstract) && !$object->isValid()) {
-			throw new Tx_MocHelpers_Domain_Repository_Exception('Object does not validate. Please check if all model validation rules has been upheld');
+		if (($object instanceof \Moc\MocHelpers\Domain\Model\ModelAbstract) && !$object->isValid()) {
+			throw new \Moc\MocHelpers\Domain\Repository\Exception('Object does not validate. Please check if all model validation rules has been upheld');
 		}
 
 		if (!$this->hasObject($object)) {
@@ -125,7 +126,7 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 */
 	public function hasObject($object) {
 		if (!($object instanceof $this->objectType)) {
-			throw new Tx_Extbase_Persistence_Exception_IllegalObjectType('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
+			throw new \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
 		}
 
 		return $this->identityMap->hasObject($object);
@@ -136,12 +137,12 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	 *
 	 * If the record already exists, update it, else insert it by calling save
 	 *
-	 * @param Tx_Extbase_DomainObject_AbstractEntity $object
+	 * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity $object
  	 * @return void
  	 */
 	public function insertOrUpdate($object) {
 		if (!($object instanceof $this->objectType)) {
-			throw new Tx_Extbase_Persistence_Exception_IllegalObjectType('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
+			throw new \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
 		}
 
 		if (!empty($value) && $this->exists($object) === 1) {
@@ -157,17 +158,17 @@ class Tx_MocHelpers_Domain_Repository_MocRepository extends Tx_Extbase_Persisten
 	/**
 	 * Check if an object exists in the database
 	 *
-	 * @param Tx_Extbase_DomainObject_AbstractEntity $object
+	 * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity $object
 	 * @return boolean
 	 */
 	public function exists($object) {
 		if (!($object instanceof $this->objectType)) {
-			throw new Tx_Extbase_Persistence_Exception_IllegalObjectType('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
+			throw new \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException('The object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
 		}
 
 		$uid = $object->getUid();
 		if (empty($uid)) {
-			throw new Tx_Extbase_Persistence_Exception_UnknownObject('The "object" does not have an existing counterpart in this repository.', 1249479819);
+			throw new \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException('The "object" does not have an existing counterpart in this repository.', 1249479819);
 		}
 
 		return (1 === $this->countByUid($uid));

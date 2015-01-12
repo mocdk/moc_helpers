@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_Domain_Model_Builder {
+namespace Moc\MocHelpers\Domain\Model;
+class Builder {
 
 	/**
 	 * Convert a list (or all) properites from the step data into an object
@@ -23,12 +24,12 @@ class Tx_MocHelpers_Domain_Model_Builder {
 	 * @return object
 	 */
 	public static function updateValuesOnObject($object, $data = array()) {
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
-		$reflectionService = $objectManager->get('Tx_Extbase_Reflection_Service');
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
+		$reflectionService = $objectManager->get('\TYPO3\CMS\Extbase\Reflection\ReflectionService');
 		$dataMapper = $objectManager->get('Tx_Extbase_Persistence_Mapper_DataMapper');
 
 		if (!is_object($object)) {
-			$object = $objectManager->create($object);
+			$object = $objectManager->get($object);
 		}
 
 		foreach ($data as $key => $value) {

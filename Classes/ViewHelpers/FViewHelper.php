@@ -1,3 +1,4 @@
 <?php
-class Tx_MocHelpers_ViewHelpers_FViewHelper extends Tx_MocHelpers_ViewHelpers_FunctionViewHelper  {
+namespace Moc\MocHelpers\ViewHelpers;
+class Tx_MocHelpers_ViewHelpers_FViewHelper extends FunctionViewHelper  {
 }

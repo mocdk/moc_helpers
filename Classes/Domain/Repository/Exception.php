@@ -1,4 +1,5 @@
 <?php
-class Tx_MocHelpers_Domain_Repository_Exception extends Exception {
+namespace Moc\MocHelpers\Domain\Repository;
+class Exception extends \Exception {
 
 }

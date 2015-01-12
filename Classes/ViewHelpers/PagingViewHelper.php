@@ -1,9 +1,10 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Pagination viewhelper for fluid templates. Used for constructing pagination bar/links for lists.
- * 
+ *
  * Is generlized from ViewHelper for SMK, but with some addition.
- * 
+ *
  * @author Christian Jul Jensen <christian@mocsystems.com>
  * @author Jan-Erik Revsbech <janerik@mocsystems.com>
  *
@@ -13,12 +14,12 @@
  * 		{namespace moc=Tx_MocHelpers_ViewHelpers}
  *
  *		<li class="prev">
- *			<f:if condition="{resultData.currentPage} > 1">	
+ *			<f:if condition="{resultData.currentPage} > 1">
  *				<f:then>
  *					<f:link.action addQueryString="true" arguments="{page: resultData.currentPage}"><f:translate key="navigation.previous" /></f:link.action>|
  *				</f:then>
  *				<f:else>
- *					
+ *
  *				</f:else>
  *			</f:if>
  *		</li>
@@ -37,23 +38,23 @@
  *					</f:else>
  *				</f:if>
  *			</li>
- *			
+ *
  *		</f:for>
- *		
+ *
  *		<li class="next">
- *			<f:if condition="{resultData.currentPage} < {resultData.totalCount}">	
+ *			<f:if condition="{resultData.currentPage} < {resultData.totalCount}">
  *				<f:then>
  *					<f:link.action addQueryString="true" arguments="{page: resultData.currentPage}"><f:translate  key="navigation.next" />&nbsp;&gt;</f:link.action>
  *				</f:then>
  *			<f:else>
- *					
+ *
  *				</f:else>
  *			</f:if>
  *		</li>
  *
  *
  */
-class Tx_MocHelpers_ViewHelpers_PagingViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class PagingViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @param integer $totalResults

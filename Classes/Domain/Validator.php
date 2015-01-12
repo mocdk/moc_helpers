@@ -1,5 +1,6 @@
 <?php
-class Tx_MocHelpers_Domain_Validator {
+namespace Moc\MocHelpers\Domain;
+class Validator {
 
 	protected static $validators = array();
 
@@ -10,9 +11,9 @@ class Tx_MocHelpers_Domain_Validator {
 	 */
 	public static function getValidator($class) {
 		if (!array_key_exists($class, self::$validators)) {
-			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager');
-			$reflectionService = t3lib_div::makeInstance('Tx_Extbase_Reflection_Service');
-			$validatorResolver = t3lib_div::makeInstance('Tx_Extbase_Validation_ValidatorResolver');
+			$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_Manager');
+			$reflectionService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Reflection\ReflectionService');
+			$validatorResolver = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Validation\ValidatorResolver');
 
 			$validatorResolver->injectObjectManager($objectManager);
 			$validatorResolver->injectReflectionService($reflectionService);

@@ -1,4 +1,5 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
  * Title ViewHelper for fluid
  *
@@ -7,7 +8,7 @@
  *
  *		  <moc:cdata>Title of Page and Indexing</moc:cdata>
  */
-class Tx_MocHelpers_ViewHelpers_CdataViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class CdataViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**
@@ -16,5 +17,3 @@ class Tx_MocHelpers_ViewHelpers_CdataViewHelper extends Tx_Fluid_Core_ViewHelper
 	public function render() {
 		return '<![CDATA[' . $this->renderChildren() . ']]>';	}
 }
-
-?>

@@ -1,5 +1,6 @@
 <?php
-abstract class Tx_MocHelpers_Domain_Model_Exception extends Exception{
+namespace Moc\MocHelpers\Domain\Model;
+abstract class Exception extends \Exception{
 	private $pattern;
 	private $arguments;
 	protected function initializeWithPattern($pattern){
@@ -9,17 +10,16 @@ abstract class Tx_MocHelpers_Domain_Model_Exception extends Exception{
 		$this->message = ($this->generateMessage($pattern, $arguments));
 		$this->setPattern($pattern);
 		$this->setArguments($arguments);
-		return $e;
 	}
 
-	
+
 	/**
 	 * Should be implemented as follows, the reason that the body is not implemented in this class is PHPs poor implementation of static
 	 *
-	 * 
+	 *
 	 */
 	abstract public static function createWithPattern();
-	
+
 
 
 	protected static function generateMessage($pattern, $arguments){

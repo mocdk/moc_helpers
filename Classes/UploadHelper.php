@@ -1,16 +1,17 @@
 <?php
-class Tx_MocHelpers_UploadHelper {
+namespace Moc\MocHelpers;
+class UploadHelper {
 
 	/**
-	 * @var t3lib_basicFileFunctions
+	 * @var \TYPO3\CMS\Core\Utility\File\BasicFileUtility
 	 */
 	protected $basicFileFunctions;
 
 	/**
-	 * @param t3lib_basicFileFunctions $basicFileFunctions
+	 * @param \TYPO3\CMS\Core\Utility\File\BasicFileUtility $basicFileFunctions
 	 * @return void
 	 */
-	public function injectBasicFileFunctions(t3lib_basicFileFunctions $basicFileFunctions) {
+	public function injectBasicFileFunctions(\TYPO3\CMS\Core\Utility\File\BasicFileUtility $basicFileFunctions) {
 		$this->basicFileFunctions = $basicFileFunctions;
 	}
 
@@ -23,7 +24,7 @@ class Tx_MocHelpers_UploadHelper {
 			foreach($_FILES as $file) {
 				array_push($savedFiles, $this->copyFileToDestinationFolder($file, $destinationFolder));
 			}
-		} catch(Exception $e) {
+		} catch(\Exception $e) {
 			array_push($savedFiles, $e->getMessage());
 		}
 		return $savedFiles;
@@ -34,24 +35,24 @@ class Tx_MocHelpers_UploadHelper {
 	 * @param string $destinationFolder
 	 */
 	public function copyFileToDestinationFolder($fileInfo, $destinationFolder) {
-		$error = t3lib_div::mkdir_deep(PATH_site, $destinationFolder);
+		$error = \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(PATH_site, $destinationFolder);
 		if ($error) {
-			throw new Exception($error);
+			throw new \Exception($error);
 		}
 
-		$fileInfo['name'] = $this->basicFileFunctions->cleanFileName($fileInfo['name']);
+		//$fileInfo['name'] = $this->basicFileFunctions->cleanFileName($fileInfo['name']);
 
-		if ($this->basicFileFunctions->checkFileNameLen($fileInfo['name']) === FALSE) {
-			throw new Exception(sprintf('File name too long: %s', $fileInfo['name']));
+		if (strlen($fileInfo['name']) > 60) {
+			throw new \Exception(sprintf('File name too long: %s', $fileInfo['name']));
 		}
 
-		if ($fileInfo['size'] > (t3lib_div::getMaxUploadFileSize() * 1024)) {
-			throw new Exception(sprintf('File size too large: %s, %s', $fileInfo['name'], t3lib_div::formatSize($fileInfo['size'], ' bytes| KB| MB| GB')));
+		if ($fileInfo['size'] > (\TYPO3\CMS\Core\Utility\GeneralUtility::getMaxUploadFileSize() * 1024)) {
+			throw new \Exception(sprintf('File size too large: %s, %s', $fileInfo['name'], \TYPO3\CMS\Core\Utility\GeneralUtility::formatSize($fileInfo['size'], ' bytes| KB| MB| GB')));
 		}
 
 		$filepath = $this->checkFilepath($destinationFolder . $fileInfo['name']);
 
-		t3lib_div::upload_copy_move($fileInfo['tmp_name'], PATH_site . $filepath);
+		\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($fileInfo['tmp_name'], PATH_site . $filepath);
 
 		return array('path' => $filepath, 'name' => pathinfo($filepath, PATHINFO_BASENAME));
 	}

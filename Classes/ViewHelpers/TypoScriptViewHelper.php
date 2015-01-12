@@ -1,6 +1,7 @@
 <?php
+namespace Moc\MocHelpers\ViewHelpers;
 /**
- * TypoScript ViewHelper for fluid 
+ * TypoScript ViewHelper for fluid
  * Parses content as typoscript and returns the result
  *
  * Example:
@@ -14,23 +15,23 @@
  *    </moc:TypoScript>
  *
  */
-class Tx_MocHelpers_ViewHelpers_TypoScriptViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class TypoScriptViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-  
+
   /**
    * Parses a block of typoscript and renders the output
    *
-   * @return string 
+   * @return string
    * @author Mads Brunn <mads@brunn.dk>
-   */  
+   */
   function render(){
-    
+
     $setup = $this->renderChildren();
-    $tsparser = t3lib_div::makeInstance('t3lib_TSparser');
+    $tsparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
     $tsparser->parse($setup);
-    $cObj = t3lib_div::makeInstance('tslib_cObj');
+    $cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
     return $cObj->cObjGet($tsparser->setup);
-    
+
   }
 
 }
